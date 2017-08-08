@@ -1,6 +1,8 @@
 package com.ufcg.si1.service;
 
 import com.ufcg.si1.model.Queixa;
+import com.ufcg.si1.model.FactoryQueixa;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,33 +16,18 @@ public class QueixaServiceImpl implements QueixaService {
 
     private static final AtomicLong counter = new AtomicLong();
 
-    private static List<Queixa> queixas;
+    private List<Queixa> queixas;
+    
+    private FactoryQueixa novaQueixa;
 
-    static {
-        queixas = populateDummyQueixas();
+
+    public QueixaServiceImpl(){
+    	queixas = new ArrayList<Queixa>();
+    	novaQueixa = new FactoryQueixa();
     }
 
-    private static List<Queixa> populateDummyQueixas() {
-        List<Queixa> queixas = new ArrayList<Queixa>();
-
-        queixas.add(new Queixa(counter.incrementAndGet(), "Passei mal com uma coxinha",
-                Queixa.FECHADA, "", "Jose Silva",
-                "jose@gmail.com", "rua dos tolos", "PE", "Recife"));
-
-
-        queixas.add(new Queixa(counter.incrementAndGet(),
-                "Bacalhau estragado, passamos mal!", Queixa.FECHADA, "",
-                "Ailton Sousa", "ailton@gmail.com", "rua dos bobos", "PB",
-                "Joao Pessoa"));
-
-        queixas.add(new Queixa(counter.incrementAndGet(), "Nossa rua estah muito suja", Queixa.FECHADA, "",
-                "Jose Silva", "jose@gmail.com", "rua dos tolos", "PE", "Recife"));
-
-
-        queixas.add(new Queixa(counter.incrementAndGet(), "iluminacao horrivel, muitos assaltos", Queixa.FECHADA, "",
-                "Ailton Sousa", "ailton@gmail.com", "rua dos bobos", "PB",
-                "Joao Pessoa"));
-
+    private List<Queixa> adicionaQueixas() {
+        inicializaQueixas();
         return queixas;
     }
 
@@ -91,6 +78,26 @@ public class QueixaServiceImpl implements QueixaService {
         }
         return null;
     }
+    
+    private void inicializaQueixas() {
+		queixas.add(novaQueixa.criaQueixa(counter.incrementAndGet(), "Passei mal com uma coxinha",
+                Queixa.FECHADA, "", "Jose Silva",
+                "jose@gmail.com", "rua dos tolos", "PE", "Recife"));
+
+
+        queixas.add(novaQueixa.criaQueixa(counter.incrementAndGet(),
+                "Bacalhau estragado, passamos mal!", Queixa.FECHADA, "",
+                "Ailton Sousa", "ailton@gmail.com", "rua dos bobos", "PB",
+                "Joao Pessoa"));
+
+        queixas.add(novaQueixa.criaQueixa(counter.incrementAndGet(), "Nossa rua estah muito suja", Queixa.FECHADA, "",
+                "Jose Silva", "jose@gmail.com", "rua dos tolos", "PE", "Recife"));
+
+
+        queixas.add(novaQueixa.criaQueixa(counter.incrementAndGet(), "iluminacao horrivel, muitos assaltos", Queixa.FECHADA, "",
+                "Ailton Sousa", "ailton@gmail.com", "rua dos bobos", "PB",
+                "Joao Pessoa"));
+	}
 
 
 
