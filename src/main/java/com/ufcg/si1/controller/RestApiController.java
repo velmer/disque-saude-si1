@@ -54,7 +54,7 @@ public class RestApiController {
 
         //este codigo estava aqui, mas nao precisa mais
         /*if (queixaService.doesQueixaExist(queixa)) {
-			return new ResponseEntity(new CustomErrorType("Esta queixa já existe+
+            return new ResponseEntity(new CustomErrorType("Esta queixa já existe+
 					queixa.pegaDescricao()),HttpStatus.CONFLICT);
 		}*/
 
@@ -65,7 +65,7 @@ public class RestApiController {
         }
         queixaService.saveQueixa(queixa);
 
-       // HttpHeaders headers = new HttpHeaders();
+        // HttpHeaders headers = new HttpHeaders();
         //headers.setLocation(ucBuilder.path("/api/queixa/{id}").buildAndExpand(queixa.getId()).toUri());
 
         return new ResponseEntity<Queixa>(queixa, HttpStatus.CREATED);
@@ -135,7 +135,7 @@ public class RestApiController {
         } catch (ObjetoInexistenteException e) {
             return new ResponseEntity<List>(HttpStatus.NOT_FOUND);
         }
-        if (us instanceof UnidadeSaude){
+        if (us instanceof UnidadeSaude) {
             UnidadeSaude us1 = (UnidadeSaude) us;
             return new ResponseEntity<>(us1.getEspecialidades(), HttpStatus.OK);
         }
@@ -146,11 +146,12 @@ public class RestApiController {
     @RequestMapping(value = "/unidade/", method = RequestMethod.GET)
     public ResponseEntity<?> getAllUnidades() {
         List<Object> unidades = unidadeSaudeService.getAll();
-        if (unidades.isEmpty()) return new ResponseEntity<List>(HttpStatus.NOT_FOUND);
-        else{
+        if (unidades.isEmpty()) {
+            return new ResponseEntity<List>(HttpStatus.NOT_FOUND);
+        } else {
             List<UnidadeSaude> unidadeSaudes = new ArrayList<>();
-            for (Object  saude: unidades) {
-                if(saude instanceof UnidadeSaude){
+            for (Object saude : unidades) {
+                if (saude instanceof UnidadeSaude) {
                     unidadeSaudes.add((UnidadeSaude) saude);
                 }
             }
@@ -220,7 +221,7 @@ public class RestApiController {
 
         Object unidade = unidadeSaudeService.findById(id);
 
-        if(unidade == null){
+        if (unidade == null) {
             return new ResponseEntity<ObjWrapper<Double>>(HttpStatus.NOT_FOUND);
         }
 
@@ -228,7 +229,7 @@ public class RestApiController {
         if (unidade instanceof PostoSaude)
             c = ((PostoSaude) unidade).getAtendentes()
                     / ((PostoSaude) unidade).taxaDiaria();
-        else if (unidade instanceof Hospital){
+        else if (unidade instanceof Hospital) {
             c = ((Hospital) unidade).getNumeroMedicos()
                     / ((Hospital) unidade).getNumeroPacientesDia();
         }
@@ -267,8 +268,8 @@ public class RestApiController {
         return new ResponseEntity<ObjWrapper<Integer>>(new ObjWrapper<Integer>(2), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/unidade/busca", method= RequestMethod.GET)
-    public ResponseEntity<?> consultarUnidadeSaudePorBairro(@RequestParam(value = "bairro", required = true) String bairro){
+    @RequestMapping(value = "/unidade/busca", method = RequestMethod.GET)
+    public ResponseEntity<?> consultarUnidadeSaudePorBairro(@RequestParam(value = "bairro", required = true) String bairro) {
         Object us = unidadeSaudeService.findByBairro(bairro);
         if (us == null && !(us instanceof UnidadeSaude)) {
             return new ResponseEntity(new CustomErrorType("Unidade with bairro " + bairro
