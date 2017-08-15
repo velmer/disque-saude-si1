@@ -6,12 +6,14 @@ import com.ufcg.si1.service.EspecialidadeService;
 import com.ufcg.si1.service.EspecialidadeServiceImpl;
 import com.ufcg.si1.service.UnidadeSaudeService;
 import com.ufcg.si1.service.UnidadeSaudeServiceImpl;
+import com.ufcg.si1.util.CustomErrorType;
 import exceptions.ObjetoInexistenteException;
 import exceptions.ObjetoJaExistenteException;
 import exceptions.Rep;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -73,5 +75,16 @@ public class EspecialidadeCtrl {
         headers.setLocation(ucBuilder.path("/api/especialidade/{id}").buildAndExpand(esp.getCodigo()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
+    public ResponseEntity<?> consultarEspecialidade(@PathVariable("id") long id) {
+
+        Especialidade q = especialidadeService.findById(id);
+        if (q == null) {
+            return new ResponseEntity(new CustomErrorType("Especialidade with id " + id
+                    + " not found"), HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Especialidade>(q, HttpStatus.OK);
+    }
+
+
 
 }

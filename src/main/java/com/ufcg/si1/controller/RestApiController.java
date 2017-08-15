@@ -27,16 +27,17 @@ import java.util.List;
 public class RestApiController {
     QueixaCtrl queixaCtrl = new QueixaCtrl();
     EspecialidadeCtrl especialidadeCtrl = new EspecialidadeCtrl();
+    UnidadeSaudeCtrl unidadeSaudeCtrl = new UnidadeSaudeCtrl();
+    PostoSaudeCtrl postoSaudeCtrl = new PostoSaudeCtrl();
 
-
-  //  QueixaService queixaService = new QueixaServiceImpl();
-    EspecialidadeService especialidadeService = new EspecialidadeServiceImpl();
-    UnidadeSaudeService unidadeSaudeService = new UnidadeSaudeServiceImpl();
+    // QueixaService queixaService = new QueixaServiceImpl();
+    // EspecialidadeService especialidadeService = new EspecialidadeServiceImpl();
+    // UnidadeSaudeService unidadeSaudeService = new UnidadeSaudeServiceImpl();
 
     /* situação normal =0
        situação extra =1
      */
-    private int situacaoAtualPrefeitura = 0;
+   // private int situacaoAtualPrefeitura = 0;
 
 
     // -------------------Retrieve All Complaints---------------------------------------------
@@ -52,7 +53,7 @@ public class RestApiController {
         return new ResponseEntity<List<Queixa>>(queixas, HttpStatus.OK);
     }
 
-    // -------------------Abrir uma Queixa-------------------------------------------
+    // -------------------Queixa-------------------------------------------
     @RequestMapping(value = "/queixa/", method = RequestMethod.POST)
     public ResponseEntity<?> abrirQueixa(@RequestBody Queixa queixa, UriComponentsBuilder ucBuilder) {
         return queixaCtrl.abrirQueixa(queixa , ucBuilder);
@@ -78,7 +79,13 @@ public class RestApiController {
         return queixaCtrl.fecharQueixa(queixaAFechar);
     }
 
-    //Especialidade
+
+    @RequestMapping(value = "/geral/situacao", method = RequestMethod.GET)
+    public ResponseEntity<?> getSituacaoGeralQueixas(){
+        return queixaCtrl.getSituacaoGeralQueixas();
+    }
+
+    // -------------------Especialidade-------------------------------------------
 
     @RequestMapping(value = "/especialidade/unidades", method = RequestMethod.GET)
     public ResponseEntity<?> consultaEspecialidadeporUnidadeSaude(@RequestBody int codigoUnidadeSaude) {
@@ -95,7 +102,37 @@ public class RestApiController {
         return especialidadeCtrl.incluirEspecialidade(esp, ucBuilder);
     }
 
-   /* @RequestMapping(value = "/queixa/", method = RequestMethod.POST)
+    @RequestMapping(value = "/especialidade/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> consultarEspecialidade(@PathVariable("id") long id) {
+        return especialidadeCtrl.consultarEspecialidade(id);
+    }
+
+
+    // -------------------UnidadeSaude-------------------------------------------
+    @RequestMapping(value = "/unidade/", method = RequestMethod.POST)
+    public ResponseEntity<String> incluirUnidadeSaude(@RequestBody UnidadeSaude us, UriComponentsBuilder ucBuilder) {
+        return unidadeSaudeCtrl.incluirUnidadeSaude(us,ucBuilder);
+    }
+
+
+    @RequestMapping(value = "/unidade/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> consultarUnidadeSaude(@PathVariable("id") long id) {
+        return unidadeSaudeCtrl.consultarUnidadeSaude(id);
+    }
+
+    @RequestMapping(value="/unidade/busca", method= RequestMethod.GET)
+    public ResponseEntity<?> consultarUnidadeSaudePorBairro(@RequestParam(value = "bairro", required = true) String bairro){
+        return unidadeSaudeCtrl.consultarUnidadeSaudePorBairro(bairro);
+    }
+    // -------------------PostoSaude-------------------------------------------
+
+    @RequestMapping(value = "/geral/medicos/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> calcularMediaMedicoPacienteDia(@PathVariable("id") long id) {
+        return postoSaudeCtrl.calcularMediaMedicoPacienteDia(id);
+    }
+
+    /*// -------------------Abrir uma Queixa-------------------------------------------
+    @RequestMapping(value = "/queixa/", method = RequestMethod.POST)
     public ResponseEntity<?> abrirQueixa(@RequestBody Queixa queixa, UriComponentsBuilder ucBuilder) {
 
         //este codigo estava aqui, mas nao precisa mais
@@ -187,7 +224,7 @@ public class RestApiController {
         return new ResponseEntity<List>(HttpStatus.NOT_FOUND);
     }
 
- foi    @RequestMapping(value = "/unidade/", method = RequestMethod.GET)
+    @RequestMapping(value = "/unidade/", method = RequestMethod.GET)
     public ResponseEntity<?> getAllUnidades() {
         List<Object> unidades = unidadeSaudeService.getAll();
         if (unidades.isEmpty()) return new ResponseEntity<List>(HttpStatus.NOT_FOUND);
@@ -202,7 +239,7 @@ public class RestApiController {
         }
     }
 
- foi   @RequestMapping(value = "/especialidade/", method = RequestMethod.POST)
+   @RequestMapping(value = "/especialidade/", method = RequestMethod.POST)
     public ResponseEntity<String> incluirEspecialidade(@RequestBody Especialidade esp, UriComponentsBuilder ucBuilder) {
         try {
             especialidadeService.insere(esp);
@@ -215,9 +252,7 @@ public class RestApiController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/api/especialidade/{id}").buildAndExpand(esp.getCodigo()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
-    }*/
-
-
+    }
     //how to save a subclass object?
     @RequestMapping(value = "/unidade/", method = RequestMethod.POST)
     public ResponseEntity<String> incluirUnidadeSaude(@RequestBody UnidadeSaude us, UriComponentsBuilder ucBuilder) {
@@ -310,7 +345,7 @@ public class RestApiController {
         //2: BOM
         return new ResponseEntity<ObjWrapper<Integer>>(new ObjWrapper<Integer>(2), HttpStatus.OK);
     }
-
+/*
     @RequestMapping(value="/unidade/busca", method= RequestMethod.GET)
     public ResponseEntity<?> consultarUnidadeSaudePorBairro(@RequestParam(value = "bairro", required = true) String bairro){
         Object us = unidadeSaudeService.findByBairro(bairro);
@@ -321,11 +356,8 @@ public class RestApiController {
 
         return new ResponseEntity<UnidadeSaude>((UnidadeSaude) us, HttpStatus.OK);
     }
-//ja foi refatorado
+
     private double numeroQueixasAbertas() {
-        return queixaCtrl.numeroQueixasAbertas();
-    }
-   /* private double numeroQueixasAbertas() {
         int contador = 0;
         Iterator<Queixa> it = queixaCtrl.queixaService.getIterator();
         for (Iterator<Queixa> it1 = it; it1.hasNext(); ) {

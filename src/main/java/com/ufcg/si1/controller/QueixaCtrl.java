@@ -4,6 +4,7 @@ import com.ufcg.si1.model.Queixa;
 import com.ufcg.si1.service.QueixaService;
 import com.ufcg.si1.service.QueixaServiceImpl;
 import com.ufcg.si1.util.CustomErrorType;
+import com.ufcg.si1.util.ObjWrapper;
 import exceptions.ObjetoInvalidoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,8 @@ import java.util.List;
 public class QueixaCtrl {
 
     QueixaService queixaService = new QueixaServiceImpl();
+    private int situacaoAtualPrefeitura = 0;
+
     public ResponseEntity<?> abrirQueixa(@RequestBody Queixa queixa, UriComponentsBuilder ucBuilder) {
 
         //este codigo estava aqui, mas nao precisa mais
@@ -87,8 +90,38 @@ public class QueixaCtrl {
         queixaService.updateQueixa(queixaAFechar);
         return new ResponseEntity<Queixa>(queixaAFechar, HttpStatus.OK);
     }
+    public ResponseEntity<?> getSituacaoGeralQueixas() {
 
-    public double numeroQueixasAbertas() {
+        // dependendo da situacao da prefeitura, o criterio de avaliacao muda
+        // se normal, mais de 20% abertas eh ruim, mais de 10 eh regular
+        // se extra, mais de 10% abertas eh ruim, mais de 5% eh regular
+        if (situacaoAtualPrefeitura == 0) {
+            if ((double) numeroQueixasAbertas() / queixaService.size() > 0.2) {
+                return new ResponseEntity<ObjWrapper<Integer>>(new ObjWrapper<Integer>(0), HttpStatus.OK);
+            } else {
+                if ((double) numeroQueixasAbertas() / queixaService.size() > 0.1) {
+                    return new ResponseEntity<ObjWrapper<Integer>>(new ObjWrapper<Integer>(1), HttpStatus.OK);
+                }
+            }
+        }
+        if (this.situacaoAtualPrefeitura == 1) {
+            if ((double) numeroQueixasAbertas() / queixaService.size() > 0.1) {
+                return new ResponseEntity<ObjWrapper<Integer>>(new ObjWrapper<Integer>(0), HttpStatus.OK);
+            } else {
+                if ((double) numeroQueixasAbertas() / queixaService.size() > 0.05) {
+                    return new ResponseEntity<ObjWrapper<Integer>>(new ObjWrapper<Integer>(1), HttpStatus.OK);
+                }
+            }
+        }
+
+        //situacao retornada
+        //0: RUIM
+        //1: REGULAR
+        //2: BOM
+        return new ResponseEntity<ObjWrapper<Integer>>(new ObjWrapper<Integer>(2), HttpStatus.OK);
+    }
+
+    private double numeroQueixasAbertas() {
         int contador = 0;
         Iterator<Queixa> it = queixaService.getIterator();
         for (Iterator<Queixa> it1 = it; it1.hasNext(); ) {
