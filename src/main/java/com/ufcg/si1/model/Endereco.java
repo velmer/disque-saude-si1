@@ -3,18 +3,14 @@ package com.ufcg.si1.model;
 public class Endereco {
 
 	private String rua;
-
-	private String uf;
-
+	private String estado;
 	private String cidade;
 
-	public Endereco(){
+	public Endereco() {}
 
-	}
-
-	public Endereco(String rua, String uf, String cidade) {
+    public Endereco(String rua, String estado, String cidade) {
 		this.rua = rua;
-		this.uf = uf;
+		this.estado = estado;
 		this.cidade = cidade;
 	}
 
@@ -22,11 +18,12 @@ public class Endereco {
 		return this.rua;
 	}
 
-	public String getUf() {
-		return this.uf;
+	public String getEstado() {
+		return this.estado;
 	}
 
 	public String getCidade() {
 		return this.cidade;
 	}
+
 }

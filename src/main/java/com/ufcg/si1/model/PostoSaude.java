@@ -1,39 +1,23 @@
 package com.ufcg.si1.model;
 
 
+import java.util.Set;
+
 public class PostoSaude extends UnidadeSaude{
-    private int atendentes;
 
-    private float taxaDiariaAtendimentos;
-
-    public PostoSaude(String descricao, int at, int taxa) {
-        super(descricao);
-        this.atendentes = at;
-        this.taxaDiariaAtendimentos = taxa;
-    }
+    private int taxaDiariaAtendimentos;
 
     public PostoSaude(){
         super();
     }
 
-    // implementacoes vazias
-    public int getAtendentes() {
-        return atendentes;
-    }
-
-    public float taxaDiaria() {
-        return taxaDiariaAtendimentos;
-    }
-
-    public void setAtendentes(int atendentes) {
-        this.atendentes = atendentes;
-    }
-
-    public float getTaxaDiariaAtendimentos() {
-        return taxaDiariaAtendimentos;
-    }
-
-    public void setTaxaDiariaAtendimentos(float taxaDiariaAtendimentos) {
+    public PostoSaude(String descricao, Set<Especialidade> especialidades, int quantidadeMedicos,
+                      int taxaDiariaAtendimentos) {
+        super(descricao, especialidades, quantidadeMedicos);
         this.taxaDiariaAtendimentos = taxaDiariaAtendimentos;
+    }
+
+    public int getTaxaDiariaAtendimentos() {
+        return taxaDiariaAtendimentos;
     }
 }
