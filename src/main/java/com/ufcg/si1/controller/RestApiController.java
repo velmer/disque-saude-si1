@@ -19,13 +19,17 @@ import java.util.Iterator;
 import java.util.List;
 
 
+
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin
 public class RestApiController {
-    com.ufcg.si1.controller.queixaCtrl queixaCtrl = new queixaCtrl();
+    QueixaCtrl queixaCtrl = new QueixaCtrl();
+    EspecialidadeCtrl especialidadeCtrl = new EspecialidadeCtrl();
 
-    QueixaService queixaService = new QueixaServiceImpl();
+
+  //  QueixaService queixaService = new QueixaServiceImpl();
     EspecialidadeService especialidadeService = new EspecialidadeServiceImpl();
     UnidadeSaudeService unidadeSaudeService = new UnidadeSaudeServiceImpl();
 
@@ -60,7 +64,6 @@ public class RestApiController {
         return queixaCtrl.consultarQueixa(id);
 
     }
-
     @RequestMapping(value = "/queixa/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateQueixa(@PathVariable("id") long id, @RequestBody Queixa queixa) {
         return queixaCtrl.updateQueixa(id,queixa);
@@ -73,6 +76,23 @@ public class RestApiController {
     @RequestMapping(value = "/queixa/fechamento", method = RequestMethod.POST)
     public ResponseEntity<?> fecharQueixa(@RequestBody Queixa queixaAFechar) {
         return queixaCtrl.fecharQueixa(queixaAFechar);
+    }
+
+    //Especialidade
+
+    @RequestMapping(value = "/especialidade/unidades", method = RequestMethod.GET)
+    public ResponseEntity<?> consultaEspecialidadeporUnidadeSaude(@RequestBody int codigoUnidadeSaude) {
+        return especialidadeCtrl.consultaEspecialidadeporUnidadeSaude(codigoUnidadeSaude);
+    }
+
+    @RequestMapping(value = "/unidade/", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllUnidades() {
+        return especialidadeCtrl.getAllUnidades();
+    }
+
+    @RequestMapping(value = "/especialidade/", method = RequestMethod.POST)
+    public ResponseEntity<String> incluirEspecialidade(@RequestBody Especialidade esp, UriComponentsBuilder ucBuilder) {
+        return especialidadeCtrl.incluirEspecialidade(esp, ucBuilder);
     }
 
    /* @RequestMapping(value = "/queixa/", method = RequestMethod.POST)
@@ -144,11 +164,10 @@ public class RestApiController {
         queixaAFechar.situacao = Queixa.FECHADA;
         queixaService.updateQueixa(queixaAFechar);
         return new ResponseEntity<Queixa>(queixaAFechar, HttpStatus.OK);
-    }*/
+    }
 
 
     //Especialidade
-
     @RequestMapping(value = "/especialidade/unidades", method = RequestMethod.GET)
     public ResponseEntity<?> consultaEspecialidadeporUnidadeSaude(@RequestBody int codigoUnidadeSaude) {
 
@@ -168,7 +187,7 @@ public class RestApiController {
         return new ResponseEntity<List>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/unidade/", method = RequestMethod.GET)
+ foi    @RequestMapping(value = "/unidade/", method = RequestMethod.GET)
     public ResponseEntity<?> getAllUnidades() {
         List<Object> unidades = unidadeSaudeService.getAll();
         if (unidades.isEmpty()) return new ResponseEntity<List>(HttpStatus.NOT_FOUND);
@@ -183,7 +202,7 @@ public class RestApiController {
         }
     }
 
-    @RequestMapping(value = "/especialidade/", method = RequestMethod.POST)
+ foi   @RequestMapping(value = "/especialidade/", method = RequestMethod.POST)
     public ResponseEntity<String> incluirEspecialidade(@RequestBody Especialidade esp, UriComponentsBuilder ucBuilder) {
         try {
             especialidadeService.insere(esp);
@@ -196,7 +215,7 @@ public class RestApiController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/api/especialidade/{id}").buildAndExpand(esp.getCodigo()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
-    }
+    }*/
 
 
     //how to save a subclass object?
@@ -267,19 +286,19 @@ public class RestApiController {
         // se normal, mais de 20% abertas eh ruim, mais de 10 eh regular
         // se extra, mais de 10% abertas eh ruim, mais de 5% eh regular
         if (situacaoAtualPrefeitura == 0) {
-            if ((double) numeroQueixasAbertas() / queixaService.size() > 0.2) {
+            if ((double) numeroQueixasAbertas() / queixaCtrl.queixaService.size() > 0.2) {
                 return new ResponseEntity<ObjWrapper<Integer>>(new ObjWrapper<Integer>(0), HttpStatus.OK);
             } else {
-                if ((double) numeroQueixasAbertas() / queixaService.size() > 0.1) {
+                if ((double) numeroQueixasAbertas() / queixaCtrl.queixaService.size() > 0.1) {
                     return new ResponseEntity<ObjWrapper<Integer>>(new ObjWrapper<Integer>(1), HttpStatus.OK);
                 }
             }
         }
         if (this.situacaoAtualPrefeitura == 1) {
-            if ((double) numeroQueixasAbertas() / queixaService.size() > 0.1) {
+            if ((double) numeroQueixasAbertas() / queixaCtrl.queixaService.size() > 0.1) {
                 return new ResponseEntity<ObjWrapper<Integer>>(new ObjWrapper<Integer>(0), HttpStatus.OK);
             } else {
-                if ((double) numeroQueixasAbertas() / queixaService.size() > 0.05) {
+                if ((double) numeroQueixasAbertas() / queixaCtrl.queixaService.size() > 0.05) {
                     return new ResponseEntity<ObjWrapper<Integer>>(new ObjWrapper<Integer>(1), HttpStatus.OK);
                 }
             }
@@ -302,10 +321,13 @@ public class RestApiController {
 
         return new ResponseEntity<UnidadeSaude>((UnidadeSaude) us, HttpStatus.OK);
     }
-
+//ja foi refatorado
     private double numeroQueixasAbertas() {
+        return queixaCtrl.numeroQueixasAbertas();
+    }
+   /* private double numeroQueixasAbertas() {
         int contador = 0;
-        Iterator<Queixa> it = queixaService.getIterator();
+        Iterator<Queixa> it = queixaCtrl.queixaService.getIterator();
         for (Iterator<Queixa> it1 = it; it1.hasNext(); ) {
             Queixa q = it1.next();
             if (q.getSituacao() == Queixa.ABERTA)
@@ -313,7 +335,7 @@ public class RestApiController {
         }
 
         return contador;
-    }
+    }*/
 
 }
 

@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Iterator;
@@ -19,7 +17,7 @@ import java.util.List;
 /**
  * Created by leandro on 15/08/17.
  */
-public class queixaCtrl {
+public class QueixaCtrl {
 
     QueixaService queixaService = new QueixaServiceImpl();
     public ResponseEntity<?> abrirQueixa(@RequestBody Queixa queixa, UriComponentsBuilder ucBuilder) {
@@ -90,7 +88,7 @@ public class queixaCtrl {
         return new ResponseEntity<Queixa>(queixaAFechar, HttpStatus.OK);
     }
 
-    private double numeroQueixasAbertas() {
+    public double numeroQueixasAbertas() {
         int contador = 0;
         Iterator<Queixa> it = queixaService.getIterator();
         for (Iterator<Queixa> it1 = it; it1.hasNext(); ) {
