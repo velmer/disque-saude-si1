@@ -6,7 +6,6 @@ import com.ufcg.si1.service.*;
 import com.ufcg.si1.util.CustomErrorType;
 import com.ufcg.si1.util.ObjWrapper;
 import exceptions.ObjetoInexistenteException;
-import exceptions.ObjetoInvalidoException;
 import exceptions.ObjetoJaExistenteException;
 import exceptions.Rep;
 import org.springframework.http.HttpHeaders;
@@ -19,10 +18,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin
 public class RestApiController {
+    com.ufcg.si1.controller.queixaCtrl queixaCtrl = new queixaCtrl();
 
     QueixaService queixaService = new QueixaServiceImpl();
     EspecialidadeService especialidadeService = new EspecialidadeServiceImpl();
@@ -38,7 +39,7 @@ public class RestApiController {
 
     @RequestMapping(value = "/queixa/", method = RequestMethod.GET)
     public ResponseEntity<List<Queixa>> listAllUsers() {
-        List<Queixa> queixas = queixaService.findAllQueixas();
+        List<Queixa> queixas = queixaCtrl.queixaService.findAllQueixas();
 
         if (queixas.isEmpty()) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -48,15 +49,40 @@ public class RestApiController {
     }
 
     // -------------------Abrir uma Queixa-------------------------------------------
-
     @RequestMapping(value = "/queixa/", method = RequestMethod.POST)
+    public ResponseEntity<?> abrirQueixa(@RequestBody Queixa queixa, UriComponentsBuilder ucBuilder) {
+        return queixaCtrl.abrirQueixa(queixa , ucBuilder);
+        
+    }
+
+    @RequestMapping(value = "/queixa/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> consultarQueixa(@PathVariable("id") long id) {
+        return queixaCtrl.consultarQueixa(id);
+
+    }
+
+    @RequestMapping(value = "/queixa/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateQueixa(@PathVariable("id") long id, @RequestBody Queixa queixa) {
+        return queixaCtrl.updateQueixa(id,queixa);
+    }
+    @RequestMapping(value = "/queixa/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteUser(@PathVariable("id") long id) {
+        return queixaCtrl.deleteUser(id);
+
+    }
+    @RequestMapping(value = "/queixa/fechamento", method = RequestMethod.POST)
+    public ResponseEntity<?> fecharQueixa(@RequestBody Queixa queixaAFechar) {
+        return queixaCtrl.fecharQueixa(queixaAFechar);
+    }
+
+   /* @RequestMapping(value = "/queixa/", method = RequestMethod.POST)
     public ResponseEntity<?> abrirQueixa(@RequestBody Queixa queixa, UriComponentsBuilder ucBuilder) {
 
         //este codigo estava aqui, mas nao precisa mais
         /*if (queixaService.doesQueixaExist(queixa)) {
 			return new ResponseEntity(new CustomErrorType("Esta queixa já existe+
 					queixa.pegaDescricao()),HttpStatus.CONFLICT);
-		}*/
+		}aqui
 
         try {
             queixa.abrir();
@@ -113,13 +139,12 @@ public class RestApiController {
         return new ResponseEntity<Queixa>(HttpStatus.NO_CONTENT);
     }
 
-
     @RequestMapping(value = "/queixa/fechamento", method = RequestMethod.POST)
     public ResponseEntity<?> fecharQueixa(@RequestBody Queixa queixaAFechar) {
         queixaAFechar.situacao = Queixa.FECHADA;
         queixaService.updateQueixa(queixaAFechar);
         return new ResponseEntity<Queixa>(queixaAFechar, HttpStatus.OK);
-    }
+    }*/
 
 
     //Especialidade
