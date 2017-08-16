@@ -10,7 +10,7 @@ import java.util.Set;
         @JsonSubTypes.Type(value = PostoSaude.class, name = "postoSaude"),
         @JsonSubTypes.Type(value = HospitalAdapter.class, name = "hospital")
 })
-public class UnidadeSaude {
+public abstract class UnidadeSaude {
 
     protected String descricao;
     protected Set<Especialidade> especialidades;
