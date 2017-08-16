@@ -1,4 +1,4 @@
-package com.ufcg.si1.controller.api;
+package com.ufcg.si1.controller;
 
 /**
  * Controller responsável por receber e tratar requisições das Unidades de Saúde.

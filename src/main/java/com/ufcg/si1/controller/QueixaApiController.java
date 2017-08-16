@@ -1,4 +1,4 @@
-package com.ufcg.si1.controller.api;
+package com.ufcg.si1.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
