@@ -1,10 +1,17 @@
 package com.ufcg.si1.model;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ufcg.si1.enumeration.SituacaoQueixa;
 import exceptions.ObjetoInvalidoException;
 import exceptions.OperacaoInvalidaException;
 import org.springframework.http.ResponseEntity;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = QueixaAlimento.class, name = "alimento"),
+        @JsonSubTypes.Type(value = QueixaAnimal.class, name = "animal")
+})
 public abstract class Queixa {
 
     private String comentario;
@@ -15,36 +22,47 @@ public abstract class Queixa {
 
 	public Queixa() {}
 
-	public Queixa(String descricao, SituacaoQueixa situacao, String comentario,
-                  Pessoa solicitante) {
-		this.descricao = descricao;
-		this.situacao = situacao;
-		this.comentario = comentario;
+	public Queixa(String comentario, String descricao, Endereco endereco, Pessoa solicitante) {
+        this.comentario = comentario;
+        this.descricao = descricao;
+		this.endereco = endereco;
+		this.situacao = SituacaoQueixa.ABERTA;
 		this.solicitante = solicitante;
 	}
 
-	public String getDescricao() {
-		return descricao;
-	}
+	public void iniciaQueixa(String comentario) throws OperacaoInvalidaException {
+	    if (!this.situacao.podeSerIniciada())
+            throw new OperacaoInvalidaException("Não foi possível alterar a queixa. A mesma já está em andamento.");
 
-	public SituacaoQueixa getSituacao() {
-		return situacao;
-	}
+        this.situacao = SituacaoQueixa.EM_ANDAMENTO;
+        this.comentario = comentario;
+    }
 
 	public void fechaQueixa(String comentario) throws OperacaoInvalidaException {
 		if (!this.situacao.podeSerFechada())
-            throw new OperacaoInvalidaException("Não é possível alterar uma queixa fechada.");
+            throw new OperacaoInvalidaException("Não foi possível alterar a queixa. A mesma já está fechada.");
 
         this.situacao = SituacaoQueixa.FECHADA;
         this.comentario = comentario;
 	}
 
-	public String getComentario() {
-		return comentario;
-	}
+    public String getComentario() {
+        return comentario;
+    }
 
-	public Pessoa getSolicitante() {
-		return solicitante;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public SituacaoQueixa getSituacao() {
+        return situacao;
+    }
+
+    public Pessoa getSolicitante() {
+        return solicitante;
+    }
 }

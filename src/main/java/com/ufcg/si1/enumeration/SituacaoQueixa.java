@@ -16,6 +16,10 @@ public enum SituacaoQueixa {
         return descricaoSituacao;
     }
 
+    public boolean podeSerIniciada() {
+        return this != EM_ANDAMENTO;
+    }
+
     public boolean podeSerFechada() {
         return this != FECHADA;
     }

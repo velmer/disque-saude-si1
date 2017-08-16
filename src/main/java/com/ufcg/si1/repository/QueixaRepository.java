@@ -5,5 +5,5 @@ package com.ufcg.si1.repository;
  *
  * @author Vélmer Oliveira.
  */
-public interface QuixaRepository {
+public interface QueixaRepository {
 }

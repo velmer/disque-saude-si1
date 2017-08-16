@@ -4,18 +4,12 @@ import com.ufcg.si1.enumeration.SituacaoQueixa;
 
 public class QueixaAlimento extends Queixa {
 
-    private Endereco endereco;
     private String estabelecimento;
 
-    public QueixaAlimento(String descricao, SituacaoQueixa situacao, String comentario,
-                          Pessoa solicitante, String estabelecimento, Endereco endereco) {
-        super(descricao, situacao, comentario, solicitante);
-        this.endereco = endereco;
+    public QueixaAlimento(String comentario, String descricao, Endereco endereco, Pessoa solicitante,
+                          String estabelecimento) {
+        super(comentario, descricao, endereco, solicitante);
         this.estabelecimento = estabelecimento;
-    }
-
-    public Endereco getEndereco() {
-        return this.endereco;
     }
 
     public String getEstabelecimento() {
