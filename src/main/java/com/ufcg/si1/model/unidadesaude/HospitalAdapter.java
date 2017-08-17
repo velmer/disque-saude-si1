@@ -1,8 +1,7 @@
-package com.ufcg.si1.model;
+package com.ufcg.si1.model.unidadesaude;
 
 import br.edu.ufcg.Hospital;
 
-import java.util.List;
 import java.util.Set;
 
 public class HospitalAdapter extends UnidadeSaude {

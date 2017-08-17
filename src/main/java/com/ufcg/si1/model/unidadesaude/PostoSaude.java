@@ -1,11 +1,10 @@
-package com.ufcg.si1.model;
-
+package com.ufcg.si1.model.unidadesaude;
 
 import java.util.Set;
 
 public class PostoSaude extends UnidadeSaude{
 
-    private int taxaDiariaAtendimentos;
+    private float taxaDiariaAtendimentos;
 
     public PostoSaude(){
         super();
@@ -17,7 +16,7 @@ public class PostoSaude extends UnidadeSaude{
         this.taxaDiariaAtendimentos = taxaDiariaAtendimentos;
     }
 
-    public int getTaxaDiariaAtendimentos() {
+    public float getTaxaDiariaAtendimentos() {
         return taxaDiariaAtendimentos;
     }
 }
