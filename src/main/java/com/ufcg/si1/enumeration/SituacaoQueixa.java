@@ -1,19 +1,17 @@
 package com.ufcg.si1.enumeration;
 
-import exceptions.OperacaoInvalidaException;
-
 public enum SituacaoQueixa {
 
     FECHADA("Fechada"), EM_ANDAMENTO("Em Andamento"), ABERTA("Aberta");
 
-    private final String descricaoSituacao;
+    private final String descricao;
 
-    SituacaoQueixa(String descricaoSituacao) {
-        this.descricaoSituacao = descricaoSituacao;
+    SituacaoQueixa(String descricao) {
+        this.descricao = descricao;
     }
 
-    public String getDescricaoSituacao() {
-        return descricaoSituacao;
+    public String getDescricao() {
+        return descricao;
     }
 
     public boolean podeSerIniciada() {
