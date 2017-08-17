@@ -1,30 +1,29 @@
 package com.ufcg.si1.service;
 
-import com.ufcg.si1.model.unidadesaude.UnidadeSaude;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UnidadeSaudeService implements CrudService<UnidadeSaude, Long> {
+public class PrefeituraService implements CrudService<PrefeituraService, Long> {
 
     @Override
-    public List<UnidadeSaude> listaTodos() {
+    public List<PrefeituraService> listaTodos() {
         return null;
     }
 
     @Override
-    public UnidadeSaude getPorId(Long aLong) {
+    public PrefeituraService getPorId(Long aLong) {
         return null;
     }
 
     @Override
-    public UnidadeSaude salva(UnidadeSaude unidadeSaude) {
+    public PrefeituraService salva(PrefeituraService prefeituraService) {
         return null;
     }
 
     @Override
-    public UnidadeSaude atualiza(UnidadeSaude unidadeSaude) {
+    public PrefeituraService atualiza(PrefeituraService prefeituraService) {
         return null;
     }
 
