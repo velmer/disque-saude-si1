@@ -41,12 +41,12 @@ public class UnidadeSaudeApiController {
         return new ResponseEntity<>(this.unidadeSaudeService.salva(unidadeSaude), HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<UnidadeSaude> atualiza(@RequestBody UnidadeSaude unidadeSaude) {
         return new ResponseEntity<>(this.unidadeSaudeService.salva(unidadeSaude), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.DELETE)
     public ResponseEntity<?> remove(@RequestParam("id") Long id) {
         return new ResponseEntity<>(this.unidadeSaudeService.removePorId(id), HttpStatus.OK);
     }
