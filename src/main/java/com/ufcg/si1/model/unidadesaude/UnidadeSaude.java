@@ -16,7 +16,7 @@ import java.util.Set;
 public abstract class UnidadeSaude {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     @Column
@@ -34,6 +34,10 @@ public abstract class UnidadeSaude {
         this.descricao = descricao;
         this.especialidades = especialidades;
         this.quantidadeMedicos = quantidadeMedicos;
+    }
+
+    public Long getId() {
+        return this.id;
     }
 
     public String getDescricao() {

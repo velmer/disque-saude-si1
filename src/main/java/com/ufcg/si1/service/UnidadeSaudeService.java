@@ -1,6 +1,8 @@
 package com.ufcg.si1.service;
 
 import com.ufcg.si1.model.unidadesaude.UnidadeSaude;
+import com.ufcg.si1.repository.UnidadeSaudeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,28 +10,44 @@ import java.util.List;
 @Service
 public class UnidadeSaudeService implements CrudService<UnidadeSaude, Long> {
 
-    @Override
-    public List<UnidadeSaude> listaTodos() {
-        return null;
+    private UnidadeSaudeRepository unidadeSaudeRepository;
+
+    @Autowired
+    public UnidadeSaudeService(UnidadeSaudeRepository unidadeSaudeRepository) {
+        this.unidadeSaudeRepository = unidadeSaudeRepository;
     }
 
     @Override
-    public UnidadeSaude getPorId(Long aLong) {
-        return null;
+    public List<UnidadeSaude> listaTodos() {
+        return this.unidadeSaudeRepository.findAll();
+    }
+
+    @Override
+    public UnidadeSaude getPorId(Long id) {
+        return this.unidadeSaudeRepository.findOne(id);
     }
 
     @Override
     public UnidadeSaude salva(UnidadeSaude unidadeSaude) {
-        return null;
+        if (this.unidadeSaudeRepository.exists(unidadeSaude.getId())) {
+            return null;
+        }
+        
+        return this.unidadeSaudeRepository.save(unidadeSaude);
     }
 
     @Override
     public UnidadeSaude atualiza(UnidadeSaude unidadeSaude) {
-        return null;
+        return this.unidadeSaudeRepository.exists(unidadeSaude.getId()) ? this.unidadeSaudeRepository.save(unidadeSaude) : null;
     }
 
     @Override
-    public boolean removePorId(Long aLong) {
+    public boolean removePorId(Long id) {
+        if (this.unidadeSaudeRepository.exists(id)) {
+            this.unidadeSaudeRepository.delete(id);
+            return true;
+        }
         return false;
     }
+
 }

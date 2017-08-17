@@ -7,17 +7,34 @@ import com.ufcg.si1.model.Endereco;
 import com.ufcg.si1.model.Pessoa;
 import exceptions.OperacaoInvalidaException;
 
+import javax.persistence.*;
+
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = QueixaAlimento.class, name = "alimento"),
         @JsonSubTypes.Type(value = QueixaAnimal.class, name = "animal")
 })
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Queixa {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private Long id;
+
+    @Column
     private String comentario;
+
+    @Column
 	private String descricao;
+
+    @Embedded
     private Endereco endereco;
+
+    @Embedded
     private SituacaoQueixa situacao;
+
+    @Embedded
 	private Pessoa solicitante;
 
 	public Queixa() {}
@@ -45,6 +62,10 @@ public abstract class Queixa {
         this.situacao = SituacaoQueixa.FECHADA;
         this.comentario = comentario;
 	}
+
+    public Long getId() {
+        return this.id;
+    }
 
     public String getComentario() {
         return comentario;

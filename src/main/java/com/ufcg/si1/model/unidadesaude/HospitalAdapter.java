@@ -3,12 +3,14 @@ package com.ufcg.si1.model.unidadesaude;
 import br.edu.ufcg.Hospital;
 
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 import java.util.Set;
 
 @Entity
 public class HospitalAdapter extends UnidadeSaude {
 
     // FIXME: What in the hell should I put here?
+    @Transient
     private Hospital hospital;
 
     public HospitalAdapter() { super(); }
