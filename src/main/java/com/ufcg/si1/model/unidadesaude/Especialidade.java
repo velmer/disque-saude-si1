@@ -1,8 +1,12 @@
 package com.ufcg.si1.model.unidadesaude;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
+@Embeddable
 public class Especialidade {
 
+    @Column
     private String descricao;
 
     public Especialidade() {}

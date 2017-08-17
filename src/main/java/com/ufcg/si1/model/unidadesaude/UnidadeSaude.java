@@ -3,6 +3,7 @@ package com.ufcg.si1.model.unidadesaude;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import javax.persistence.*;
 import java.util.Set;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
@@ -10,10 +11,21 @@ import java.util.Set;
         @JsonSubTypes.Type(value = PostoSaude.class, name = "postoSaude"),
         @JsonSubTypes.Type(value = HospitalAdapter.class, name = "hospital")
 })
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class UnidadeSaude {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
     protected String descricao;
+
+    @ElementCollection
     protected Set<Especialidade> especialidades;
+
+    @Column
     protected int quantidadeMedicos;
 
     public UnidadeSaude() {}
