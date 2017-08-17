@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Especialidade {
 
-    @Column
+    @Column(name = "ESPECIALIDADE")
     private String descricao;
 
     public Especialidade() {}

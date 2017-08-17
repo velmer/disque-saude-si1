@@ -1,11 +1,13 @@
 package com.ufcg.si1.model.unidadesaude;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.util.Set;
 
 @Entity
-public class PostoSaude extends UnidadeSaude{
+public class PostoSaude extends UnidadeSaude {
 
+    @Column
     private float taxaDiariaAtendimentos;
 
     public PostoSaude(){
