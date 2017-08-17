@@ -1,11 +1,11 @@
-package com.ufcg.si1.model;
+package com.ufcg.si1.model.vigilanciasanitaria.queixa;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ufcg.si1.enumeration.SituacaoQueixa;
-import exceptions.ObjetoInvalidoException;
+import com.ufcg.si1.model.Endereco;
+import com.ufcg.si1.model.Pessoa;
 import exceptions.OperacaoInvalidaException;
-import org.springframework.http.ResponseEntity;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
