@@ -1,5 +1,7 @@
 package com.ufcg.si1.controller;
 
+import com.ufcg.si1.dto.UnidadeSaudeDTO;
+import com.ufcg.si1.factory.UnidadeSaudeFactory;
 import com.ufcg.si1.model.unidadesaude.UnidadeSaude;
 import com.ufcg.si1.service.UnidadeSaudeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -37,17 +40,21 @@ public class UnidadeSaudeApiController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<UnidadeSaude> insere(@RequestBody UnidadeSaude unidadeSaude) {
+    public ResponseEntity<UnidadeSaude> insere(@Valid @RequestBody UnidadeSaudeDTO unidadeSaudeDTO) {
+        UnidadeSaude unidadeSaude = UnidadeSaudeFactory.criaUnidadeSaude(unidadeSaudeDTO);
+
         return new ResponseEntity<>(this.unidadeSaudeService.salva(unidadeSaude), HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<UnidadeSaude> atualiza(@RequestBody UnidadeSaude unidadeSaude) {
-        return new ResponseEntity<>(this.unidadeSaudeService.salva(unidadeSaude), HttpStatus.OK);
+    public ResponseEntity<UnidadeSaude> atualiza(@Valid @RequestBody UnidadeSaudeDTO unidadeSaudeDTO) {
+        UnidadeSaude unidadeSaude = UnidadeSaudeFactory.criaUnidadeSaude(unidadeSaudeDTO);
+
+        return new ResponseEntity<>(this.unidadeSaudeService.atualiza(unidadeSaude), HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseEntity<?> remove(@RequestParam("id") Long id) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> remove(@PathVariable("id") Long id) {
         return new ResponseEntity<>(this.unidadeSaudeService.removePorId(id), HttpStatus.OK);
     }
 

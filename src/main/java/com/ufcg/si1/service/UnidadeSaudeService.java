@@ -29,10 +29,6 @@ public class UnidadeSaudeService implements CrudService<UnidadeSaude, Long> {
 
     @Override
     public UnidadeSaude salva(UnidadeSaude unidadeSaude) {
-        if (this.unidadeSaudeRepository.exists(unidadeSaude.getId())) {
-            return null;
-        }
-        
         return this.unidadeSaudeRepository.save(unidadeSaude);
     }
 
