@@ -18,6 +18,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Queixa {
 
+    private static final Long ID_DEFAULT = 0L;
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
@@ -67,6 +68,10 @@ public abstract class Queixa {
         return this.id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getComentario() {
         return comentario;
     }
@@ -86,4 +91,9 @@ public abstract class Queixa {
     public Pessoa getSolicitante() {
         return solicitante;
     }
+
+    public void setSolicitante(Pessoa solicitante) {
+        this.solicitante = solicitante;
+    }
+
 }

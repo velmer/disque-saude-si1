@@ -21,7 +21,7 @@ public class Pessoa {
 	public Pessoa() {}
 
 	public Pessoa(String nome, String email, Endereco endereco) {
-		this.nome = nome;
+	    this.nome = nome;
 		this.email = email;
 		this.endereco = endereco;
 	}
@@ -30,7 +30,11 @@ public class Pessoa {
         return id;
     }
 
-	public String getNome() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
 		return nome;
 	}
 
