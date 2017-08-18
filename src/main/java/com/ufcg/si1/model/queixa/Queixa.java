@@ -64,6 +64,14 @@ public abstract class Queixa {
         this.comentario = comentario;
 	}
 
+    public boolean temSolicitantePersistido() {
+        return this.solicitante.getId() != null;
+    }
+
+    public void setIdDefaultParaMerge() {
+	    this.id = ID_DEFAULT;
+    }
+
     public Long getId() {
         return this.id;
     }

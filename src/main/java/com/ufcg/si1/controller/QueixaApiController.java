@@ -4,6 +4,7 @@ import com.ufcg.si1.dto.QueixaDTO;
 import com.ufcg.si1.dto.UnidadeSaudeDTO;
 import com.ufcg.si1.factory.QueixaFactory;
 import com.ufcg.si1.factory.UnidadeSaudeFactory;
+import com.ufcg.si1.model.Pessoa;
 import com.ufcg.si1.model.queixa.Queixa;
 import com.ufcg.si1.model.unidadesaude.UnidadeSaude;
 import com.ufcg.si1.service.QueixaService;
@@ -46,6 +47,9 @@ public class QueixaApiController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Queixa> insere(@Valid @RequestBody QueixaDTO queixaDTO) {
         Queixa queixa = QueixaFactory.criaQueixa(queixaDTO);
+
+        if (queixa.temSolicitantePersistido())
+            queixa.setIdDefaultParaMerge();
 
         return new ResponseEntity<>(this.queixaService.salva(queixa), HttpStatus.CREATED);
     }
