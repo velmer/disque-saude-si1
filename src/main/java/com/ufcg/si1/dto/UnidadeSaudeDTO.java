@@ -1,5 +1,28 @@
 package com.ufcg.si1.dto;
 
-public abstract class UnidadeSaudeDTO {
+import com.ufcg.si1.model.unidadesaude.Especialidade;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import java.util.Set;
+
+public class UnidadeSaudeDTO {
+
+    @NotNull(message = "O tipo da Unidade de Saúde não pode ser nulo.")
+    public String tipo;
+
+    @NotNull(message = "A descrição da Unidade de Saúde não pode ser nula.")
+    public String descricao;
+
+    @NotNull(message = "A lista de especialidades da Unidade de Saúde não pode ser nula.")
+    public Set<Especialidade> especialidades;
+
+    @Min(value = 0, message = "Uma Unidade de Saúde não pode possuir uma quantidade negativa de médicos.")
+    public int quantidadeMedicos;
+
+    @Min(value = 0, message = "Uma Unidade de Saúde não pode possuir uma taxa diária de atendimentos negativa.")
+    public float taxaDiariaAtendimentos;
+
+    @Min(value = 0, message = "Uma Unidade de Saúde não pode possuir o número de pacientes por dia negativo.")
+    public float numeroPacientesDia;
 }
