@@ -1,6 +1,6 @@
 package com.ufcg.si1.repository;
 
-import com.ufcg.si1.model.vigilanciasanitaria.queixa.Queixa;
+import com.ufcg.si1.model.queixa.Queixa;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
