@@ -15,7 +15,7 @@ public class PostoSaude extends UnidadeSaude {
     }
 
     public PostoSaude(String descricao, Set<Especialidade> especialidades, int quantidadeMedicos,
-                      int taxaDiariaAtendimentos) {
+                      float taxaDiariaAtendimentos) {
         super(descricao, especialidades, quantidadeMedicos);
         this.taxaDiariaAtendimentos = taxaDiariaAtendimentos;
     }

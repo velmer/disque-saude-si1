@@ -2,6 +2,7 @@ package com.ufcg.si1.model.unidadesaude;
 
 import br.edu.ufcg.Hospital;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 import java.util.Set;
@@ -13,16 +14,20 @@ public class HospitalAdapter extends UnidadeSaude {
     @Transient
     private Hospital hospital;
 
+    @Column
+    private float numeroPacientesDia;
+
     public HospitalAdapter() { super(); }
 
     public HospitalAdapter(String descricao, Set<Especialidade> especialidades, int quantidadeMedicos,
-                           int quantidadePacientesDia) {
+                           float numeroPacientesDia) {
         super(descricao, especialidades, quantidadeMedicos);
 
-        this.hospital = new Hospital(descricao, quantidadeMedicos, quantidadePacientesDia);
+        this.numeroPacientesDia = numeroPacientesDia;
+        this.hospital = new Hospital(descricao, quantidadeMedicos, numeroPacientesDia);
     }
 
-    public int getQuantidadePacientesDia() {
-        return (int) this.hospital.getNumeroPacientesDia();
+    public float getNumeroPacientesDia() {
+        return this.numeroPacientesDia;
     }
 }
