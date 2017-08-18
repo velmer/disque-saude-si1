@@ -1,4 +1,4 @@
-package com.ufcg.si1.model.vigilanciasanitaria.queixa;
+package com.ufcg.si1.model.queixa;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -9,7 +9,7 @@ import exceptions.OperacaoInvalidaException;
 
 import javax.persistence.*;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "tipo")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = QueixaAlimento.class, name = "alimento"),
         @JsonSubTypes.Type(value = QueixaAnimal.class, name = "animal")
@@ -31,10 +31,10 @@ public abstract class Queixa {
     @Embedded
     private Endereco endereco;
 
-    @Embedded
+    @Enumerated(EnumType.STRING)
     private SituacaoQueixa situacao;
 
-    @Embedded
+    @ManyToOne(cascade = CascadeType.PERSIST)
 	private Pessoa solicitante;
 
 	public Queixa() {}
@@ -47,7 +47,7 @@ public abstract class Queixa {
 		this.solicitante = solicitante;
 	}
 
-	public void iniciaQueixa(String comentario) throws OperacaoInvalidaException {
+	public void resolverQueixa(String comentario) throws OperacaoInvalidaException {
 	    if (!this.situacao.podeSerIniciada())
             throw new OperacaoInvalidaException("Não foi possível alterar a queixa. A mesma já está em andamento.");
 

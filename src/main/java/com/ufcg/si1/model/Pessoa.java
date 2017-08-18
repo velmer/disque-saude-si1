@@ -1,10 +1,22 @@
 package com.ufcg.si1.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Pessoa {
 
-    protected String nome;
-    protected String email;
-    protected Endereco endereco;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
+    private String nome;
+
+    @Column
+    private String email;
+
+    @Embedded
+    private Endereco endereco;
 
 	public Pessoa() {}
 
@@ -13,6 +25,10 @@ public class Pessoa {
 		this.email = email;
 		this.endereco = endereco;
 	}
+
+    public Long getId() {
+        return id;
+    }
 
 	public String getNome() {
 		return nome;
@@ -25,5 +41,6 @@ public class Pessoa {
     public Endereco getEndereco() {
         return endereco;
     }
+
 
 }
