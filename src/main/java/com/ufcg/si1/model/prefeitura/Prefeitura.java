@@ -1,10 +1,30 @@
 package com.ufcg.si1.model.prefeitura;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ufcg.si1.enumeration.EficienciaPrefeitura;
+import org.springframework.data.annotation.Id;
 
+import javax.persistence.*;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "tipo")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = PrefeituraNormal.class, name = "normal"),
+        @JsonSubTypes.Type(value = PrefeituraExtra.class, name = "extra"),
+        @JsonSubTypes.Type(value = PrefeituraCaos.class, name = "caos")
+})
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Prefeitura {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    protected Long id;
+
+    @Column
     protected float limiteEficienciaBaixa;
+
+    @Column
     protected float limiteEficienciaRegular;
 
     public Prefeitura(float limiteEficienciaBaixa, float limiteEficienciaRegular) {
