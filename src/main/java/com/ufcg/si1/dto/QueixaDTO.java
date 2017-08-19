@@ -1,11 +1,12 @@
 package com.ufcg.si1.dto;
 
-import com.ufcg.si1.enumeration.SituacaoQueixa;
+import com.ufcg.si1.enumeration.StatusQueixa;
 import com.ufcg.si1.model.Endereco;
 import com.ufcg.si1.model.Pessoa;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 
 public class QueixaDTO {
@@ -24,7 +25,8 @@ public class QueixaDTO {
     @NotNull(message = "O endereço da Queixa não pode ser nulo.")
     public Endereco endereco;
 
-    public SituacaoQueixa situacao;
+    @Enumerated
+    public StatusQueixa status;
 
     @NotNull(message = "O solicitante da Queixa não pode ser nulo.")
     public Pessoa solicitante;

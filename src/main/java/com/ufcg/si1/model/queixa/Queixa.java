@@ -2,9 +2,10 @@ package com.ufcg.si1.model.queixa;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.ufcg.si1.enumeration.SituacaoQueixa;
+import com.ufcg.si1.enumeration.StatusQueixa;
 import com.ufcg.si1.model.Endereco;
 import com.ufcg.si1.model.Pessoa;
+import exceptions.OpcaoNaoExistenteException;
 import exceptions.OperacaoInvalidaException;
 
 import javax.persistence.*;
@@ -33,7 +34,7 @@ public abstract class Queixa {
     private Endereco endereco;
 
     @Enumerated(EnumType.STRING)
-    private SituacaoQueixa situacao;
+    private StatusQueixa status;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
 	private Pessoa solicitante;
@@ -44,24 +45,8 @@ public abstract class Queixa {
         this.comentario = comentario;
         this.descricao = descricao;
 		this.endereco = endereco;
-		this.situacao = SituacaoQueixa.ABERTA;
+		this.status = StatusQueixa.ABERTA;
 		this.solicitante = solicitante;
-	}
-
-	public void resolverQueixa(String comentario) throws OperacaoInvalidaException {
-	    if (!this.situacao.podeSerResolvida())
-            throw new OperacaoInvalidaException("Não foi possível alterar a queixa. A mesma já está em andamento.");
-
-        this.situacao = SituacaoQueixa.EM_ANDAMENTO;
-        this.comentario = comentario;
-    }
-
-	public void fechaQueixa(String comentario) throws OperacaoInvalidaException {
-		if (!this.situacao.podeSerFechada())
-            throw new OperacaoInvalidaException("Não foi possível alterar a queixa. A mesma já está fechada.");
-
-        this.situacao = SituacaoQueixa.FECHADA;
-        this.comentario = comentario;
 	}
 
     /**
@@ -102,16 +87,16 @@ public abstract class Queixa {
         return endereco;
     }
 
-    public SituacaoQueixa getSituacao() {
-        return situacao;
+    public StatusQueixa getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusQueixa status) {
+        this.status = status;
     }
 
     public Pessoa getSolicitante() {
         return solicitante;
-    }
-
-    public void setSolicitante(Pessoa solicitante) {
-        this.solicitante = solicitante;
     }
 
 }
