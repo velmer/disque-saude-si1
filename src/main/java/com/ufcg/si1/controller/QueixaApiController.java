@@ -1,14 +1,9 @@
 package com.ufcg.si1.controller;
 
 import com.ufcg.si1.dto.QueixaDTO;
-import com.ufcg.si1.dto.UnidadeSaudeDTO;
 import com.ufcg.si1.factory.QueixaFactory;
-import com.ufcg.si1.factory.UnidadeSaudeFactory;
-import com.ufcg.si1.model.Pessoa;
 import com.ufcg.si1.model.queixa.Queixa;
-import com.ufcg.si1.model.unidadesaude.UnidadeSaude;
 import com.ufcg.si1.service.QueixaService;
-import com.ufcg.si1.service.UnidadeSaudeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +44,7 @@ public class QueixaApiController {
         Queixa queixa = QueixaFactory.criaQueixa(queixaDTO);
 
         if (queixa.temSolicitantePersistido())
-            queixa.setIdDefaultParaMerge();
+            queixa.transformaParaMerge();
 
         return new ResponseEntity<>(this.queixaService.salva(queixa), HttpStatus.CREATED);
     }

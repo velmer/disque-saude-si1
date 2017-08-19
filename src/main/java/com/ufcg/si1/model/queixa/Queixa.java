@@ -49,7 +49,7 @@ public abstract class Queixa {
 	}
 
 	public void resolverQueixa(String comentario) throws OperacaoInvalidaException {
-	    if (!this.situacao.podeSerIniciada())
+	    if (!this.situacao.podeSerResolvida())
             throw new OperacaoInvalidaException("Não foi possível alterar a queixa. A mesma já está em andamento.");
 
         this.situacao = SituacaoQueixa.EM_ANDAMENTO;
@@ -64,11 +64,21 @@ public abstract class Queixa {
         this.comentario = comentario;
 	}
 
+    /**
+     * Verifica se o solicitante já foi persistido no BD.
+     *
+     * @return {@code true} caso o solicitante já tenha sido persistido, {@code false}
+     * caso contrário.
+     */
     public boolean temSolicitantePersistido() {
         return this.solicitante.getId() != null;
     }
 
-    public void setIdDefaultParaMerge() {
+    /**
+     * Transforma o objeto a fim do mesmo ser "merged" no BD. Este método garante que
+     * ao salvar a entidade, o método chamado pelo EntityManager será o "merge()".
+     */
+    public void transformaParaMerge() {
 	    this.id = ID_DEFAULT;
     }
 
