@@ -4,13 +4,28 @@ import com.ufcg.si1.enumeration.EficienciaPrefeitura;
 
 public abstract class Prefeitura {
 
-    protected float limiteProporcaoInferior;
-    protected float limiteProporcaoSuperior;
+    protected float limiteEficienciaBaixa;
+    protected float limiteEficienciaRegular;
 
-    public Prefeitura(float limiteProporcaoInferior, float limiteProporcaoSuperior) {
-        this.limiteProporcaoInferior = limiteProporcaoInferior;
-        this.limiteProporcaoSuperior = limiteProporcaoSuperior;
+    public Prefeitura(float limiteEficienciaBaixa, float limiteEficienciaRegular) {
+        this.limiteEficienciaBaixa = limiteEficienciaBaixa;
+        this.limiteEficienciaRegular = limiteEficienciaRegular;
     }
 
-    public abstract EficienciaPrefeitura calculaEficiencia(float proporcaoQueixas);
+    /**
+     * Retorna a eficiência da Prefeitura de acordo com o seu estado e a proporção entre
+     * queixas abertas e fechadas.
+     *
+     * @param proporcaoQueixas Proporção entre queixas abertas e fechadas.
+     * @return EficienciaPrefeitura Enum que indica qual a eficiência da prefeitura.
+     */
+    public EficienciaPrefeitura getEficiencia(float proporcaoQueixas) {
+        if (proporcaoQueixas > limiteEficienciaBaixa)
+            return EficienciaPrefeitura.BAIXA;
+        else if (proporcaoQueixas > limiteEficienciaRegular)
+            return EficienciaPrefeitura.REGULAR;
+        else
+            return EficienciaPrefeitura.ALTA;
+    }
+
 }
