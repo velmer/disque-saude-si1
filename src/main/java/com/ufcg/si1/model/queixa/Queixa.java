@@ -2,9 +2,10 @@ package com.ufcg.si1.model.queixa;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.ufcg.si1.enumeration.SituacaoQueixa;
+import com.ufcg.si1.enumeration.StatusQueixa;
 import com.ufcg.si1.model.Endereco;
 import com.ufcg.si1.model.Pessoa;
+import exceptions.OpcaoNaoExistenteException;
 import exceptions.OperacaoInvalidaException;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Queixa {
 
+    private static final Long ID_DEFAULT = 0L;
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
@@ -32,7 +34,7 @@ public abstract class Queixa {
     private Endereco endereco;
 
     @Enumerated(EnumType.STRING)
-    private SituacaoQueixa situacao;
+    private StatusQueixa status;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
 	private Pessoa solicitante;
@@ -43,28 +45,34 @@ public abstract class Queixa {
         this.comentario = comentario;
         this.descricao = descricao;
 		this.endereco = endereco;
-		this.situacao = SituacaoQueixa.ABERTA;
+		this.status = StatusQueixa.ABERTA;
 		this.solicitante = solicitante;
 	}
 
-	public void resolverQueixa(String comentario) throws OperacaoInvalidaException {
-	    if (!this.situacao.podeSerIniciada())
-            throw new OperacaoInvalidaException("Não foi possível alterar a queixa. A mesma já está em andamento.");
-
-        this.situacao = SituacaoQueixa.EM_ANDAMENTO;
-        this.comentario = comentario;
+    /**
+     * Verifica se o solicitante já foi persistido no BD.
+     *
+     * @return {@code true} caso o solicitante já tenha sido persistido, {@code false}
+     * caso contrário.
+     */
+    public boolean temSolicitantePersistido() {
+        return this.solicitante.getId() != null;
     }
 
-	public void fechaQueixa(String comentario) throws OperacaoInvalidaException {
-		if (!this.situacao.podeSerFechada())
-            throw new OperacaoInvalidaException("Não foi possível alterar a queixa. A mesma já está fechada.");
-
-        this.situacao = SituacaoQueixa.FECHADA;
-        this.comentario = comentario;
-	}
+    /**
+     * Transforma o objeto a fim do mesmo ser "merged" no BD. Este método garante que
+     * ao salvar a entidade, o método chamado pelo EntityManager será o "merge()".
+     */
+    public void transformaParaMerge() {
+	    this.id = ID_DEFAULT;
+    }
 
     public Long getId() {
         return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getComentario() {
@@ -79,11 +87,16 @@ public abstract class Queixa {
         return endereco;
     }
 
-    public SituacaoQueixa getSituacao() {
-        return situacao;
+    public StatusQueixa getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusQueixa status) {
+        this.status = status;
     }
 
     public Pessoa getSolicitante() {
         return solicitante;
     }
+
 }
