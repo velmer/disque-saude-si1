@@ -35,8 +35,8 @@ public class QueixaApiController {
         return new ResponseEntity<>(this.queixaService.listaTodos(), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Queixa> getPorId(@RequestParam("id") Long id) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Queixa> getPorId(@PathVariable("id") Long id) {
         return new ResponseEntity<>(this.queixaService.getPorId(id), HttpStatus.OK);
     }
 

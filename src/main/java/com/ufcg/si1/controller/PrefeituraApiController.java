@@ -34,8 +34,8 @@ public class PrefeituraApiController {
         return new ResponseEntity<>(this.prefeituraService.listaTodos(), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Prefeitura> getPorId(@RequestParam("id") Long id) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Prefeitura> getPorId(@PathVariable("id") Long id) {
         return new ResponseEntity<>(this.prefeituraService.getPorId(id), HttpStatus.OK);
     }
 
