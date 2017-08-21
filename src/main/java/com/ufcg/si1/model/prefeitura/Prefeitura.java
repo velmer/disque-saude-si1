@@ -52,6 +52,10 @@ public abstract class Prefeitura {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public float getLimiteEficienciaBaixa() {
         return limiteEficienciaBaixa;
     }
