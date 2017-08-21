@@ -29,7 +29,10 @@ public class PrefeituraService implements CrudService<Prefeitura, Long> {
 
     @Override
     public Prefeitura salva(Prefeitura prefeitura) {
-        return this.prefeituraRepository.save(prefeitura);
+        boolean existePrefeitura = prefeitura.getId() != null
+                && this.prefeituraRepository.exists(prefeitura.getId());
+
+        return existePrefeitura ? null : this.prefeituraRepository.save(prefeitura);
     }
 
     @Override
@@ -37,9 +40,13 @@ public class PrefeituraService implements CrudService<Prefeitura, Long> {
         if (!this.prefeituraRepository.exists(prefeitura.getId()))
             return null;
 
-        Prefeitura prefeituraPersistida = getPorId(prefeitura.getId());
+        /*
+         * Temos que remover a prefeitura que existe no banco, para em caso de troca de
+         * tipo, referente ao padrão State, o tipo da prefeitura no BD seja alterado.
+         */
+        removePorId(prefeitura.getId());
 
-        return this.prefeituraRepository.exists(prefeitura.getId()) ? this.prefeituraRepository.save(prefeitura) : null;
+        return this.prefeituraRepository.save(prefeitura);
     }
 
     @Override
