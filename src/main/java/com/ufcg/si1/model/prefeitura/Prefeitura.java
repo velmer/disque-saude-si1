@@ -48,4 +48,15 @@ public abstract class Prefeitura {
             return EficienciaPrefeitura.ALTA;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public float getLimiteEficienciaBaixa() {
+        return limiteEficienciaBaixa;
+    }
+
+    public float getLimiteEficienciaRegular() {
+        return limiteEficienciaRegular;
+    }
 }
