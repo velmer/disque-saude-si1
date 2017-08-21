@@ -34,8 +34,8 @@ public class UnidadeSaudeApiController {
         return new ResponseEntity<>(this.unidadeSaudeService.listaTodos(), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<UnidadeSaude> getPorId(@RequestParam("id") Long id) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<UnidadeSaude> getPorId(@PathVariable("id") Long id) {
         return new ResponseEntity<>(this.unidadeSaudeService.getPorId(id), HttpStatus.OK);
     }
 

@@ -5,7 +5,9 @@ import com.ufcg.si1.model.Pessoa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Table(name = "TB_QUEIXA_ANIMAL")
 @Entity
 public class QueixaAnimal extends Queixa {
 
@@ -22,5 +24,18 @@ public class QueixaAnimal extends Queixa {
 
     public String getTipoAnimal() {
         return tipoAnimal;
+    }
+
+    @Override
+    public String toString() {
+        return "QueixaAnimal{" +
+                "tipoAnimal='" + tipoAnimal + '\'' +
+                ", id=" + id +
+                ", comentario='" + comentario + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", endereco=" + endereco +
+                ", status=" + status +
+                ", solicitante=" + solicitante +
+                '}';
     }
 }

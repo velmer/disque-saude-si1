@@ -1,5 +1,8 @@
 package com.ufcg.si1.model.prefeitura;
 
+import javax.persistence.Entity;
+
+@Entity
 public class PrefeituraCaos extends Prefeitura {
 
     private static final float LIMITE_EFICIENCIA_BAIXA = 0.05F;
@@ -9,4 +12,12 @@ public class PrefeituraCaos extends Prefeitura {
         super(LIMITE_EFICIENCIA_BAIXA, LIMITE_EFICIENCIA_REGULAR);
     }
 
+    @Override
+    public String toString() {
+        return "PrefeituraCaos{" +
+                "id=" + id +
+                ", limiteEficienciaBaixa=" + limiteEficienciaBaixa +
+                ", limiteEficienciaRegular=" + limiteEficienciaRegular +
+                '}';
+    }
 }

@@ -29,4 +29,32 @@ public class Endereco {
 		return this.cidade;
 	}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Endereco endereco = (Endereco) o;
+
+        if (!rua.equals(endereco.rua)) return false;
+        if (!estado.equals(endereco.estado)) return false;
+        return cidade.equals(endereco.cidade);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = rua.hashCode();
+        result = 31 * result + estado.hashCode();
+        result = 31 * result + cidade.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Endereco{" +
+                "rua='" + rua + '\'' +
+                ", estado='" + estado + '\'' +
+                ", cidade='" + cidade + '\'' +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package com.ufcg.si1.model;
 
 import javax.persistence.*;
 
+@Table(name = "TB_PESSOA")
 @Entity
 public class Pessoa {
 
@@ -46,5 +47,28 @@ public class Pessoa {
         return endereco;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Pessoa pessoa = (Pessoa) o;
+
+        return id.equals(pessoa.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Pessoa{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", endereco=" + endereco +
+                '}';
+    }
 }

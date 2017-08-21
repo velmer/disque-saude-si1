@@ -2,8 +2,10 @@ package com.ufcg.si1.model.unidadesaude;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Set;
 
+@Table(name = "TB_POSTO_SAUDE")
 @Entity
 public class PostoSaude extends UnidadeSaude {
 
@@ -22,5 +24,16 @@ public class PostoSaude extends UnidadeSaude {
 
     public float getTaxaDiariaAtendimentos() {
         return taxaDiariaAtendimentos;
+    }
+
+    @Override
+    public String toString() {
+        return "PostoSaude{" +
+                "taxaDiariaAtendimentos=" + taxaDiariaAtendimentos +
+                ", id=" + id +
+                ", descricao='" + descricao + '\'' +
+                ", especialidades=" + especialidades +
+                ", quantidadeMedicos=" + quantidadeMedicos +
+                '}';
     }
 }

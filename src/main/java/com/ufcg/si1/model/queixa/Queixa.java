@@ -15,29 +15,31 @@ import javax.persistence.*;
         @JsonSubTypes.Type(value = QueixaAlimento.class, name = "alimento"),
         @JsonSubTypes.Type(value = QueixaAnimal.class, name = "animal")
 })
+@Table(name = "TB_QUEIXA")
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Queixa {
 
     private static final Long ID_DEFAULT = 0L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+    protected Long id;
 
     @Column
-    private String comentario;
+    protected String comentario;
 
     @Column
-	private String descricao;
+    protected String descricao;
 
     @Embedded
-    private Endereco endereco;
+    protected Endereco endereco;
 
     @Enumerated(EnumType.STRING)
-    private StatusQueixa status;
+    protected StatusQueixa status;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-	private Pessoa solicitante;
+    protected Pessoa solicitante;
 
 	public Queixa() {}
 
@@ -99,4 +101,21 @@ public abstract class Queixa {
         return solicitante;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Queixa queixa = (Queixa) o;
+
+        return id.equals(queixa.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
+    public abstract String toString();
 }

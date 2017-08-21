@@ -3,7 +3,6 @@ package com.ufcg.si1.model.prefeitura;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ufcg.si1.enumeration.EficienciaPrefeitura;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 
@@ -13,6 +12,7 @@ import javax.persistence.*;
         @JsonSubTypes.Type(value = PrefeituraExtra.class, name = "extra"),
         @JsonSubTypes.Type(value = PrefeituraCaos.class, name = "caos")
 })
+@Table(name = "TB_PREFEITURA")
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Prefeitura {
@@ -48,4 +48,37 @@ public abstract class Prefeitura {
             return EficienciaPrefeitura.ALTA;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public float getLimiteEficienciaBaixa() {
+        return limiteEficienciaBaixa;
+    }
+
+    public float getLimiteEficienciaRegular() {
+        return limiteEficienciaRegular;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Prefeitura that = (Prefeitura) o;
+
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
+    public abstract String toString();
 }
