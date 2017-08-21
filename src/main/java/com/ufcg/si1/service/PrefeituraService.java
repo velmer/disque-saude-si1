@@ -34,6 +34,11 @@ public class PrefeituraService implements CrudService<Prefeitura, Long> {
 
     @Override
     public Prefeitura atualiza(Prefeitura prefeitura) {
+        if (!this.prefeituraRepository.exists(prefeitura.getId()))
+            return null;
+
+        Prefeitura prefeituraPersistida = getPorId(prefeitura.getId());
+
         return this.prefeituraRepository.exists(prefeitura.getId()) ? this.prefeituraRepository.save(prefeitura) : null;
     }
 

@@ -11,6 +11,7 @@ import java.util.Set;
         @JsonSubTypes.Type(value = PostoSaude.class, name = "postoSaude"),
         @JsonSubTypes.Type(value = HospitalAdapter.class, name = "hospital")
 })
+@Table(name = "TB_UNIDADE_SAUDE")
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class UnidadeSaude {

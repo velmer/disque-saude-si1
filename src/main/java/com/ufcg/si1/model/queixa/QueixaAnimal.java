@@ -5,7 +5,9 @@ import com.ufcg.si1.model.Pessoa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Table(name = "TB_QUEIXA_ANIMAL")
 @Entity
 public class QueixaAnimal extends Queixa {
 

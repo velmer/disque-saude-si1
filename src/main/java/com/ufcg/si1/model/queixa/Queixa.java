@@ -15,6 +15,7 @@ import javax.persistence.*;
         @JsonSubTypes.Type(value = QueixaAlimento.class, name = "alimento"),
         @JsonSubTypes.Type(value = QueixaAnimal.class, name = "animal")
 })
+@Table(name = "TB_QUEIXA")
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Queixa {

@@ -2,6 +2,7 @@ package com.ufcg.si1.model;
 
 import javax.persistence.*;
 
+@Table(name = "TB_PESSOA")
 @Entity
 public class Pessoa {
 
