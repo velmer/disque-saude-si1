@@ -3,7 +3,6 @@ package com.ufcg.si1.model.prefeitura;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ufcg.si1.enumeration.EficienciaPrefeitura;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 
@@ -14,7 +13,7 @@ import javax.persistence.*;
         @JsonSubTypes.Type(value = PrefeituraCaos.class, name = "caos")
 })
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Prefeitura {
 
     @Id

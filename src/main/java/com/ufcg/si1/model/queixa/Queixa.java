@@ -20,6 +20,7 @@ import javax.persistence.*;
 public abstract class Queixa {
 
     private static final Long ID_DEFAULT = 0L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
