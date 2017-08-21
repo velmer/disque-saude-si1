@@ -23,4 +23,15 @@ public class PostoSaude extends UnidadeSaude {
     public float getTaxaDiariaAtendimentos() {
         return taxaDiariaAtendimentos;
     }
+
+    @Override
+    public String toString() {
+        return "PostoSaude{" +
+                "taxaDiariaAtendimentos=" + taxaDiariaAtendimentos +
+                ", id=" + id +
+                ", descricao='" + descricao + '\'' +
+                ", especialidades=" + especialidades +
+                ", quantidadeMedicos=" + quantidadeMedicos +
+                '}';
+    }
 }

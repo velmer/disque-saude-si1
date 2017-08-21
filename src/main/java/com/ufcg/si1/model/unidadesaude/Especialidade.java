@@ -33,4 +33,11 @@ public class Especialidade {
     public int hashCode() {
         return descricao.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Especialidade{" +
+                "descricao='" + descricao + '\'' +
+                '}';
+    }
 }

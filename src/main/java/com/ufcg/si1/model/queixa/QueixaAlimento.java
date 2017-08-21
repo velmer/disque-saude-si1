@@ -23,4 +23,17 @@ public class QueixaAlimento extends Queixa {
     public String getEstabelecimento() {
         return estabelecimento;
     }
+
+    @Override
+    public String toString() {
+        return "QueixaAlimento{" +
+                "estabelecimento='" + estabelecimento + '\'' +
+                ", id=" + id +
+                ", comentario='" + comentario + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", endereco=" + endereco +
+                ", status=" + status +
+                ", solicitante=" + solicitante +
+                '}';
+    }
 }

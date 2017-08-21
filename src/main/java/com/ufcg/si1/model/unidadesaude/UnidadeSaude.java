@@ -17,7 +17,7 @@ public abstract class UnidadeSaude {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+    protected Long id;
 
     @Column
     protected String descricao;
@@ -60,4 +60,6 @@ public abstract class UnidadeSaude {
         return this.especialidades.add(esp);
     }
 
+    @Override
+    public abstract String toString();
 }

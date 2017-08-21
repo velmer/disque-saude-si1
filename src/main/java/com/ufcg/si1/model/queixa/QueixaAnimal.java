@@ -23,4 +23,17 @@ public class QueixaAnimal extends Queixa {
     public String getTipoAnimal() {
         return tipoAnimal;
     }
+
+    @Override
+    public String toString() {
+        return "QueixaAnimal{" +
+                "tipoAnimal='" + tipoAnimal + '\'' +
+                ", id=" + id +
+                ", comentario='" + comentario + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", endereco=" + endereco +
+                ", status=" + status +
+                ", solicitante=" + solicitante +
+                '}';
+    }
 }

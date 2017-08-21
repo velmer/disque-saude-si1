@@ -12,4 +12,12 @@ public class PrefeituraNormal extends Prefeitura {
         super(LIMITE_EFICIENCIA_BAIXA, LIMITE_EFICIENCIA_REGULAR);
     }
 
+    @Override
+    public String toString() {
+        return "PrefeituraNormal{" +
+                "id=" + id +
+                ", limiteEficienciaBaixa=" + limiteEficienciaBaixa +
+                ", limiteEficienciaRegular=" + limiteEficienciaRegular +
+                '}';
+    }
 }

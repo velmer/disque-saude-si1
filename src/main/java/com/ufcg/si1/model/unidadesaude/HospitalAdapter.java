@@ -30,4 +30,15 @@ public class HospitalAdapter extends UnidadeSaude {
     public float getNumeroPacientesDia() {
         return this.numeroPacientesDia;
     }
+
+    @Override
+    public String toString() {
+        return "HospitalAdapter{" +
+                "numeroPacientesDia=" + numeroPacientesDia +
+                ", id=" + id +
+                ", descricao='" + descricao + '\'' +
+                ", especialidades=" + especialidades +
+                ", quantidadeMedicos=" + quantidadeMedicos +
+                '}';
+    }
 }
