@@ -22,40 +22,40 @@ import java.util.List;
 @RequestMapping(value = "/prefeituras")
 public class PrefeituraApiController {
 
-    private PrefeituraService queixaService;
+    private PrefeituraService prefeituraService;
 
     @Autowired
-    public PrefeituraApiController(PrefeituraService queixaService) {
-        this.queixaService = queixaService;
+    public PrefeituraApiController(PrefeituraService prefeituraService) {
+        this.prefeituraService = prefeituraService;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity<List<Prefeitura>> listaTodos() {
-        return new ResponseEntity<>(this.queixaService.listaTodos(), HttpStatus.OK);
+        return new ResponseEntity<>(this.prefeituraService.listaTodos(), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Prefeitura> getPorId(@RequestParam("id") Long id) {
-        return new ResponseEntity<>(this.queixaService.getPorId(id), HttpStatus.OK);
+        return new ResponseEntity<>(this.prefeituraService.getPorId(id), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Prefeitura> insere(@Valid @RequestBody PrefeituraDTO prefeituraDTO) {
         Prefeitura prefeitura = PrefeituraFactory.criaPrefeitura(prefeituraDTO);
 
-        return new ResponseEntity<>(this.queixaService.salva(prefeitura), HttpStatus.CREATED);
+        return new ResponseEntity<>(this.prefeituraService.salva(prefeitura), HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<Prefeitura> atualiza(@Valid @RequestBody PrefeituraDTO prefeituraDTO) {
         Prefeitura prefeitura = PrefeituraFactory.criaPrefeitura(prefeituraDTO);
 
-        return new ResponseEntity<>(this.queixaService.atualiza(prefeitura), HttpStatus.OK);
+        return new ResponseEntity<>(this.prefeituraService.atualiza(prefeitura), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> remove(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(this.queixaService.removePorId(id), HttpStatus.OK);
+        return new ResponseEntity<>(this.prefeituraService.removePorId(id), HttpStatus.OK);
     }
 
 }
