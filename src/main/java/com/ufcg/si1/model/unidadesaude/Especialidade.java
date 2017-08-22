@@ -7,16 +7,16 @@ import javax.persistence.Embeddable;
 public class Especialidade {
 
     @Column(name = "especialidade")
-    private String descricao;
+    private String nome;
 
     public Especialidade() {}
 
-    public Especialidade(String descricao) {
-        this.descricao = descricao;
+    public Especialidade(String nome) {
+        this.nome = nome;
     }
 
-    public String getDescricao() {
-        return this.descricao;
+    public String getNome() {
+        return this.nome;
     }
 
     @Override
@@ -26,18 +26,18 @@ public class Especialidade {
 
         Especialidade that = (Especialidade) o;
 
-        return descricao.equals(that.descricao);
+        return nome.equals(that.nome);
     }
 
     @Override
     public int hashCode() {
-        return descricao.hashCode();
+        return nome.hashCode();
     }
 
     @Override
     public String toString() {
         return "Especialidade{" +
-                "descricao='" + descricao + '\'' +
+                "nome='" + nome + '\'' +
                 '}';
     }
 }

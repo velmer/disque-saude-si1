@@ -37,6 +37,18 @@ public abstract class UnidadeSaude {
         this.quantidadeMedicos = quantidadeMedicos;
     }
 
+    public boolean adicionaEspecialidade(Especialidade esp) {
+        return this.especialidades.add(esp);
+    }
+
+    public boolean contemEspecialidade(Especialidade esp) {
+        return  this.especialidades.contains(esp);
+    }
+
+    public boolean contemEspecialidade(String nomeEspecialidade) {
+        return this.contemEspecialidade(new Especialidade(nomeEspecialidade));
+    }
+
     public Long getId() {
         return this.id;
     }
@@ -55,10 +67,6 @@ public abstract class UnidadeSaude {
 
     public int getQuantidadeMedicos() {
         return this.quantidadeMedicos;
-    }
-
-    public boolean adicionaEspecialidade(Especialidade esp) {
-        return this.especialidades.add(esp);
     }
 
     @Override
