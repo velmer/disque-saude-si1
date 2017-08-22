@@ -27,8 +27,28 @@ public class QueixaService implements CrudService<Queixa, Long> {
         return this.queixaRepository.findOne(id);
     }
 
+    public float getProporcaoQueixas() {
+        List<Queixa> todasQueixas = listaTodos();
+
+        int quantidadeQueixasAbertas = 0, quantidadeQueixasFechadas = 0;
+
+        for(Queixa queixa : todasQueixas) {
+            if (queixa.estaAberta())
+                quantidadeQueixasAbertas++;
+            else if (queixa.estaFechada())
+                quantidadeQueixasFechadas++;
+        }
+
+        // Todo: Adicionar tratamento para divisão por 0
+
+        return ((float) quantidadeQueixasAbertas) / quantidadeQueixasFechadas;
+    }
+
     @Override
     public Queixa salva(Queixa queixa) {
+        if (queixa.temSolicitantePersistido())
+            queixa.transformaParaMerge();
+
         return this.queixaRepository.save(queixa);
     }
 

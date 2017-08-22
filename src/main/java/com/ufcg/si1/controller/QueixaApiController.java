@@ -44,9 +44,6 @@ public class QueixaApiController {
     public ResponseEntity<Queixa> insere(@Valid @RequestBody QueixaDTO queixaDTO) {
         Queixa queixa = QueixaFactory.criaQueixa(queixaDTO);
 
-        if (queixa.temSolicitantePersistido())
-            queixa.transformaParaMerge();
-
         return new ResponseEntity<>(this.queixaService.salva(queixa), HttpStatus.CREATED);
     }
 
