@@ -27,6 +27,11 @@ public class PrefeituraService implements CrudService<Prefeitura, Long> {
         return this.prefeituraRepository.findOne(id);
     }
 
+    public Prefeitura getPrefeitura() {
+        // Fixme: Não esquecer de ajeitar essa bagaça
+        return listaTodos().get(0);
+    }
+
     @Override
     public Prefeitura salva(Prefeitura prefeitura) {
         boolean existePrefeitura = prefeitura.getId() != null
@@ -57,4 +62,5 @@ public class PrefeituraService implements CrudService<Prefeitura, Long> {
         }
         return false;
     }
+
 }
