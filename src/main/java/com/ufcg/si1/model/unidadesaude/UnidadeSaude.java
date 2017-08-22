@@ -45,10 +45,6 @@ public abstract class UnidadeSaude {
         return  this.especialidades.contains(esp);
     }
 
-    public boolean contemEspecialidade(String nomeEspecialidade) {
-        return this.contemEspecialidade(new Especialidade(nomeEspecialidade));
-    }
-
     public Long getId() {
         return this.id;
     }

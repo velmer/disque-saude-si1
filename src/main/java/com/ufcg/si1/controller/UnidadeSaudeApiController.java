@@ -42,14 +42,8 @@ public class UnidadeSaudeApiController {
     }
 
     @RequestMapping(value = "/especialidade", method = RequestMethod.GET)
-    public ResponseEntity<List<UnidadeSaude>> getPorEspecialidade(@RequestParam("especialidade") String nomeEspecialidade) {
-        List<UnidadeSaude> todasUnidadesSaude = this.unidadeSaudeService.listaTodos(),
-                unidadesSelecionadas = new ArrayList<>();
-
-        for (UnidadeSaude unidadeSaude : todasUnidadesSaude) {
-            if (unidadeSaude.contemEspecialidade(nomeEspecialidade))
-                unidadesSelecionadas.add(unidadeSaude);
-        }
+    public ResponseEntity<List<UnidadeSaude>> getPorEspecialidade(@RequestParam("especialidade") Especialidade especialidade) {
+        List<UnidadeSaude> unidadesSelecionadas = this.unidadeSaudeService.getPorEspecialidade(especialidade);
 
         if (unidadesSelecionadas.isEmpty())
             return new ResponseEntity<>(unidadesSelecionadas, HttpStatus.NOT_FOUND);

@@ -1,10 +1,12 @@
 package com.ufcg.si1.service;
 
+import com.ufcg.si1.model.unidadesaude.Especialidade;
 import com.ufcg.si1.model.unidadesaude.UnidadeSaude;
 import com.ufcg.si1.repository.UnidadeSaudeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,4 +48,15 @@ public class UnidadeSaudeService implements CrudService<UnidadeSaude, Long> {
         return false;
     }
 
+    public List<UnidadeSaude> getPorEspecialidade(Especialidade especialidade) {
+        List<UnidadeSaude> todasUnidadesSaude = this.listaTodos(),
+                unidadesSelecionadas = new ArrayList<>();
+
+        for (UnidadeSaude unidadeSaude : todasUnidadesSaude) {
+            if (unidadeSaude.contemEspecialidade(especialidade))
+                unidadesSelecionadas.add(unidadeSaude);
+        }
+
+        return unidadesSelecionadas;
+    }
 }
