@@ -49,6 +49,7 @@ public class UnidadeSaudeService implements CrudService<UnidadeSaude, Long> {
     }
 
     public List<UnidadeSaude> getPorEspecialidade(Especialidade especialidade) {
+        // FIXME: Quando Especialidade for uma entidade no BD, esse método deve ser substituído por uma query
         List<UnidadeSaude> todasUnidadesSaude = this.listaTodos(),
                 unidadesSelecionadas = new ArrayList<>();
 
