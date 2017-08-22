@@ -6,28 +6,34 @@ import javax.persistence.Embeddable;
 public class Endereco {
 
 	private String rua;
-	private String estado;
+	private String bairro;
 	private String cidade;
+    private String estado;
 
 	public Endereco() {}
 
-    public Endereco(String rua, String estado, String cidade) {
+    public Endereco(String rua, String bairro, String cidade, String estado) {
 		this.rua = rua;
-		this.estado = estado;
+		this.bairro = bairro;
 		this.cidade = cidade;
+        this.estado = estado;
 	}
 
 	public String getRua() {
 		return this.rua;
 	}
 
-	public String getEstado() {
-		return this.estado;
-	}
+    public String getBairro() {
+        return this.bairro;
+    }
 
 	public String getCidade() {
 		return this.cidade;
 	}
+
+    public String getEstado() {
+        return this.estado;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -36,16 +42,19 @@ public class Endereco {
 
         Endereco endereco = (Endereco) o;
 
-        if (!rua.equals(endereco.rua)) return false;
-        if (!estado.equals(endereco.estado)) return false;
-        return cidade.equals(endereco.cidade);
+        return rua.equals(endereco.rua)
+                && bairro.equals(endereco.bairro)
+                && cidade.equals(endereco.cidade)
+                && estado.equals(endereco.estado);
     }
 
     @Override
     public int hashCode() {
         int result = rua.hashCode();
-        result = 31 * result + estado.hashCode();
+        result = 31 * result + bairro.hashCode();
         result = 31 * result + cidade.hashCode();
+        result = 31 * result + estado.hashCode();
+
         return result;
     }
 
@@ -53,8 +62,9 @@ public class Endereco {
     public String toString() {
         return "Endereco{" +
                 "rua='" + rua + '\'' +
-                ", estado='" + estado + '\'' +
+                ", bairro='" + bairro + '\'' +
                 ", cidade='" + cidade + '\'' +
+                ", estado='" + estado + '\'' +
                 '}';
     }
 }
