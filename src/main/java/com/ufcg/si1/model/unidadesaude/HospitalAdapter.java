@@ -16,7 +16,7 @@ public class HospitalAdapter extends UnidadeSaude {
     @Transient
     private Hospital hospital;
 
-    @Column
+    @Column // TODO: Remover esse campo e passar a utilizar somente o dado do Hospital da lib. Patterns..
     private float numeroPacientesDia;
 
     public HospitalAdapter() { super(); }
@@ -27,6 +27,13 @@ public class HospitalAdapter extends UnidadeSaude {
 
         this.numeroPacientesDia = numeroPacientesDia;
         this.hospital = new Hospital(descricao, quantidadeMedicos, numeroPacientesDia);
+    }
+
+    public float getMediaMedicoPorPaciente() {
+        if (this.numeroPacientesDia == 0) // FIXME: Melhorar tratamento e utilizar constantes
+            throw new RuntimeException("Número de pacientes por dia não pode ser zero.");
+
+        return this.quantidadeMedicos / this.numeroPacientesDia;
     }
 
     public float getNumeroPacientesDia() {

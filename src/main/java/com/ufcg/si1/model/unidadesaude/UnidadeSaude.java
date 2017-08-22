@@ -37,6 +37,8 @@ public abstract class UnidadeSaude {
         this.quantidadeMedicos = quantidadeMedicos;
     }
 
+    public abstract float getMediaMedicoPorPaciente();
+
     public boolean adicionaEspecialidade(Especialidade esp) {
         return this.especialidades.add(esp);
     }

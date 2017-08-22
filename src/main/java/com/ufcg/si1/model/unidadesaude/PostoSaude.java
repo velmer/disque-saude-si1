@@ -22,6 +22,13 @@ public class PostoSaude extends UnidadeSaude {
         this.taxaDiariaAtendimentos = taxaDiariaAtendimentos;
     }
 
+    public float getMediaMedicoPorPaciente() {
+        if (this.taxaDiariaAtendimentos == 0) // FIXME: Melhorar tratamento e utilizar constantes
+            throw new RuntimeException("Taca diária de atendimentos não pode ser zero.");
+
+        return this.quantidadeMedicos / this.taxaDiariaAtendimentos;
+    }
+
     public float getTaxaDiariaAtendimentos() {
         return taxaDiariaAtendimentos;
     }
