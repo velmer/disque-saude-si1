@@ -1,5 +1,6 @@
 package com.ufcg.si1.dto;
 
+import com.ufcg.si1.model.Endereco;
 import com.ufcg.si1.model.unidadesaude.Especialidade;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -19,6 +20,9 @@ public class UnidadeSaudeDTO {
 
     @NotNull(message = "A descrição da Unidade de Saúde não pode ser nula.")
     public String descricao;
+
+    @NotNull(message = "O endereço da Unidade de Saúde não pode ser nulo.")
+    public Endereco endereco;
 
     @NotNull(message = "A lista de especialidades da Unidade de Saúde não pode ser nula.")
     public Set<Especialidade> especialidades;

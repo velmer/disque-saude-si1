@@ -1,6 +1,7 @@
 package com.ufcg.si1.factory;
 
 import com.ufcg.si1.dto.UnidadeSaudeDTO;
+import com.ufcg.si1.model.Endereco;
 import com.ufcg.si1.model.unidadesaude.Especialidade;
 import com.ufcg.si1.model.unidadesaude.HospitalAdapter;
 import com.ufcg.si1.model.unidadesaude.PostoSaude;
@@ -10,15 +11,15 @@ import java.util.Set;
 
 public class UnidadeSaudeFactory {
 
-    public static UnidadeSaude criaUnidadeSaude(Long id, String tipo, String descricao, Set<Especialidade> especialidades,
-                                    int quantidadeMedicos, float taxaDiariaAtendimento, float numeroPacientesDia) {
+    public static UnidadeSaude criaUnidadeSaude(Long id, String tipo, String descricao, Endereco endereco, Set<Especialidade> especialidades,
+                                                int quantidadeMedicos, float taxaDiariaAtendimento, float numeroPacientesDia) {
 
         UnidadeSaude unidadeSaudeCriada;
 
         if (tipo.equals("postoSaude")) {
-            unidadeSaudeCriada = new PostoSaude(descricao, especialidades, quantidadeMedicos, taxaDiariaAtendimento);
+            unidadeSaudeCriada = new PostoSaude(descricao, endereco, especialidades, quantidadeMedicos, taxaDiariaAtendimento);
         } else if (tipo.equals("hospital")) {
-            unidadeSaudeCriada = new HospitalAdapter(descricao, especialidades, quantidadeMedicos, numeroPacientesDia);
+            unidadeSaudeCriada = new HospitalAdapter(descricao, endereco, especialidades, quantidadeMedicos, numeroPacientesDia);
         } else {
             throw new RuntimeException();
         }
@@ -29,10 +30,10 @@ public class UnidadeSaudeFactory {
         return unidadeSaudeCriada;
     }
 
-    public static UnidadeSaude criaUnidadeSaude(String tipo, String descricao, Set<Especialidade> especialidades,
+    public static UnidadeSaude criaUnidadeSaude(String tipo, String descricao, Endereco endereco, Set<Especialidade> especialidades,
                                                 int quantidadeMedicos, float taxaDiariaAtendimento, float numeroPacientesDia) {
 
-        return UnidadeSaudeFactory.criaUnidadeSaude(null, tipo, descricao, especialidades, quantidadeMedicos,
+        return UnidadeSaudeFactory.criaUnidadeSaude(null, tipo, descricao, endereco, especialidades, quantidadeMedicos,
                 taxaDiariaAtendimento, numeroPacientesDia);
     }
 
@@ -40,6 +41,7 @@ public class UnidadeSaudeFactory {
         return UnidadeSaudeFactory.criaUnidadeSaude(unidadeSaudeDTO.id,
                 unidadeSaudeDTO.tipo,
                 unidadeSaudeDTO.descricao,
+                unidadeSaudeDTO.endereco,
                 unidadeSaudeDTO.especialidades,
                 unidadeSaudeDTO.quantidadeMedicos,
                 unidadeSaudeDTO.taxaDiariaAtendimentos,

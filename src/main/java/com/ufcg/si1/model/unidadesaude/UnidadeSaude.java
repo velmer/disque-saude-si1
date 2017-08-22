@@ -2,6 +2,7 @@ package com.ufcg.si1.model.unidadesaude;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.ufcg.si1.model.Endereco;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -23,6 +24,9 @@ public abstract class UnidadeSaude {
     @Column
     protected String descricao;
 
+    @Embedded
+    protected Endereco endereco;
+
     @ElementCollection
     protected Set<Especialidade> especialidades;
 
@@ -31,8 +35,9 @@ public abstract class UnidadeSaude {
 
     public UnidadeSaude() {}
 
-    public UnidadeSaude(String descricao, Set<Especialidade> especialidades, int quantidadeMedicos) {
+    public UnidadeSaude(String descricao, Endereco endereco, Set<Especialidade> especialidades, int quantidadeMedicos) {
         this.descricao = descricao;
+        this.endereco = endereco;
         this.especialidades = especialidades;
         this.quantidadeMedicos = quantidadeMedicos;
     }
@@ -57,6 +62,10 @@ public abstract class UnidadeSaude {
 
     public String getDescricao() {
         return this.descricao;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
     }
 
     public Set<Especialidade> getEspecialidades() {

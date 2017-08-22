@@ -1,6 +1,7 @@
 package com.ufcg.si1.model.unidadesaude;
 
 import br.edu.ufcg.Hospital;
+import com.ufcg.si1.model.Endereco;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,9 +22,9 @@ public class HospitalAdapter extends UnidadeSaude {
 
     public HospitalAdapter() { super(); }
 
-    public HospitalAdapter(String descricao, Set<Especialidade> especialidades, int quantidadeMedicos,
+    public HospitalAdapter(String descricao, Endereco endereco, Set<Especialidade> especialidades, int quantidadeMedicos,
                            float numeroPacientesDia) {
-        super(descricao, especialidades, quantidadeMedicos);
+        super(descricao, endereco, especialidades, quantidadeMedicos);
 
         this.numeroPacientesDia = numeroPacientesDia;
         this.hospital = new Hospital(descricao, quantidadeMedicos, numeroPacientesDia);
@@ -46,6 +47,7 @@ public class HospitalAdapter extends UnidadeSaude {
                 "numeroPacientesDia=" + numeroPacientesDia +
                 ", id=" + id +
                 ", descricao='" + descricao + '\'' +
+                ", endereco=" + endereco +
                 ", especialidades=" + especialidades +
                 ", quantidadeMedicos=" + quantidadeMedicos +
                 '}';

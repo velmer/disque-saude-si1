@@ -1,5 +1,7 @@
 package com.ufcg.si1.model.unidadesaude;
 
+import com.ufcg.si1.model.Endereco;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -16,9 +18,9 @@ public class PostoSaude extends UnidadeSaude {
         super();
     }
 
-    public PostoSaude(String descricao, Set<Especialidade> especialidades, int quantidadeMedicos,
+    public PostoSaude(String descricao, Endereco endereco, Set<Especialidade> especialidades, int quantidadeMedicos,
                       float taxaDiariaAtendimentos) {
-        super(descricao, especialidades, quantidadeMedicos);
+        super(descricao, endereco, especialidades, quantidadeMedicos);
         this.taxaDiariaAtendimentos = taxaDiariaAtendimentos;
     }
 
@@ -39,6 +41,7 @@ public class PostoSaude extends UnidadeSaude {
                 "taxaDiariaAtendimentos=" + taxaDiariaAtendimentos +
                 ", id=" + id +
                 ", descricao='" + descricao + '\'' +
+                ", endereco=" + endereco +
                 ", especialidades=" + especialidades +
                 ", quantidadeMedicos=" + quantidadeMedicos +
                 '}';
