@@ -35,4 +35,6 @@ public class UnidadeSaudeDTO {
 
     @Min(value = 0, message = "Uma Unidade de Saúde não pode possuir o número de pacientes por dia negativo.")
     public float numeroPacientesDia;
+
+    public float mediaMedicoPorPaciente;
 }

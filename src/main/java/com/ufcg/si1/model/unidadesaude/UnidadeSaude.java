@@ -42,7 +42,7 @@ public abstract class UnidadeSaude {
         this.quantidadeMedicos = quantidadeMedicos;
     }
 
-    public float getMediaMedicoPorPaciente() {
+    public float calculaMediaMedicoPorPaciente() {
         if (getTaxaPacientesPorDia() == 0)  // FIXME: Melhorar tratamento e utilizar constantes
             throw new RuntimeException("Taxa de pacientes por dia não pode ser zero.");
 
@@ -59,8 +59,8 @@ public abstract class UnidadeSaude {
         return  this.especialidades.contains(esp);
     }
 
-    public boolean pertenceAoBairro(Endereco endereco) {
-        return this.endereco.getBairro().equals(endereco.getBairro());
+    public boolean pertenceAoBairro(String bairro) {
+        return this.endereco.getBairro().equals(bairro);
     }
 
     public Long getId() {

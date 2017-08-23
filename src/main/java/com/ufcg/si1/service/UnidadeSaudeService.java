@@ -62,13 +62,13 @@ public class UnidadeSaudeService implements CrudService<UnidadeSaude, Long> {
         return unidadesSelecionadas;
     }
 
-    public List<UnidadeSaude> getPorEndereco(Endereco endereco) {
+    public List<UnidadeSaude> getPorBairro(String bairro) {
         // FIXME: Deve ser substituído por uma query (no hablo SQL)
         List<UnidadeSaude> todasUnidadesSaude = this.listaTodos(),
                 unidadesSelecionadas = new ArrayList<>();
 
         for (UnidadeSaude unidadeSaude : todasUnidadesSaude) {
-            if (unidadeSaude.pertenceAoBairro(endereco))
+            if (unidadeSaude.pertenceAoBairro(bairro))
                 unidadesSelecionadas.add(unidadeSaude);
         }
 
