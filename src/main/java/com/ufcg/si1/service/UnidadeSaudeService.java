@@ -1,5 +1,6 @@
 package com.ufcg.si1.service;
 
+import com.ufcg.si1.model.Endereco;
 import com.ufcg.si1.model.unidadesaude.Especialidade;
 import com.ufcg.si1.model.unidadesaude.UnidadeSaude;
 import com.ufcg.si1.repository.UnidadeSaudeRepository;
@@ -55,6 +56,19 @@ public class UnidadeSaudeService implements CrudService<UnidadeSaude, Long> {
 
         for (UnidadeSaude unidadeSaude : todasUnidadesSaude) {
             if (unidadeSaude.contemEspecialidade(especialidade))
+                unidadesSelecionadas.add(unidadeSaude);
+        }
+
+        return unidadesSelecionadas;
+    }
+
+    public List<UnidadeSaude> getPorEndereco(Endereco endereco) {
+        // FIXME: Deve ser substituído por uma query (no hablo SQL)
+        List<UnidadeSaude> todasUnidadesSaude = this.listaTodos(),
+                unidadesSelecionadas = new ArrayList<>();
+
+        for (UnidadeSaude unidadeSaude : todasUnidadesSaude) {
+            if (unidadeSaude.pertenceAoBairro(endereco))
                 unidadesSelecionadas.add(unidadeSaude);
         }
 

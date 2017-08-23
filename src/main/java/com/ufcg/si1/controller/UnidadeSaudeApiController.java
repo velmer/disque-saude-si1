@@ -2,6 +2,7 @@ package com.ufcg.si1.controller;
 
 import com.ufcg.si1.dto.UnidadeSaudeDTO;
 import com.ufcg.si1.factory.UnidadeSaudeFactory;
+import com.ufcg.si1.model.Endereco;
 import com.ufcg.si1.model.unidadesaude.Especialidade;
 import com.ufcg.si1.model.unidadesaude.UnidadeSaude;
 import com.ufcg.si1.service.UnidadeSaudeService;
@@ -44,6 +45,16 @@ public class UnidadeSaudeApiController {
     @RequestMapping(value = "/especialidade", method = RequestMethod.GET)
     public ResponseEntity<List<UnidadeSaude>> getPorEspecialidade(@RequestParam("especialidade") Especialidade especialidade) {
         List<UnidadeSaude> unidadesSelecionadas = this.unidadeSaudeService.getPorEspecialidade(especialidade);
+
+        if (unidadesSelecionadas.isEmpty())
+            return new ResponseEntity<>(unidadesSelecionadas, HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(unidadesSelecionadas, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/bairro", method = RequestMethod.GET)
+    public ResponseEntity<List<UnidadeSaude>> getPorBairro(@RequestParam("especialidade") Endereco endereco) {
+        List<UnidadeSaude> unidadesSelecionadas = this.unidadeSaudeService.getPorEndereco(endereco);
 
         if (unidadesSelecionadas.isEmpty())
             return new ResponseEntity<>(unidadesSelecionadas, HttpStatus.NOT_FOUND);
