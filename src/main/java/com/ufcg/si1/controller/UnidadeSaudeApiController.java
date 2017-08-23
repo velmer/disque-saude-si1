@@ -53,7 +53,7 @@ public class UnidadeSaudeApiController {
     }
 
     @RequestMapping(value = "/bairro", method = RequestMethod.GET)
-    public ResponseEntity<List<UnidadeSaude>> getPorBairro(@RequestParam("especialidade") Endereco endereco) {
+    public ResponseEntity<List<UnidadeSaude>> getPorBairro(@RequestParam("endereco") Endereco endereco) {
         List<UnidadeSaude> unidadesSelecionadas = this.unidadeSaudeService.getPorEndereco(endereco);
 
         if (unidadesSelecionadas.isEmpty())
