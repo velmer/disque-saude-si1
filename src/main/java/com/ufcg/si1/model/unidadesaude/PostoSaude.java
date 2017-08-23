@@ -12,33 +12,26 @@ import java.util.Set;
 public class PostoSaude extends UnidadeSaude {
 
     @Column
-    private float taxaDiariaAtendimentos;
+    private float taxaPacientesPorDia;
 
     public PostoSaude(){
         super();
     }
 
     public PostoSaude(String descricao, Endereco endereco, Set<Especialidade> especialidades, int quantidadeMedicos,
-                      float taxaDiariaAtendimentos) {
+                      float taxaPacientesPorDia) {
         super(descricao, endereco, especialidades, quantidadeMedicos);
-        this.taxaDiariaAtendimentos = taxaDiariaAtendimentos;
+        this.taxaPacientesPorDia = taxaPacientesPorDia;
     }
 
-    public float getMediaMedicoPorPaciente() {
-        if (this.taxaDiariaAtendimentos == 0) // FIXME: Melhorar tratamento e utilizar constantes
-            throw new RuntimeException("Taca diária de atendimentos não pode ser zero.");
-
-        return this.quantidadeMedicos / this.taxaDiariaAtendimentos;
-    }
-
-    public float getTaxaDiariaAtendimentos() {
-        return taxaDiariaAtendimentos;
+    public float getTaxaPacientesPorDia() {
+        return this.taxaPacientesPorDia;
     }
 
     @Override
     public String toString() {
         return "PostoSaude{" +
-                "taxaDiariaAtendimentos=" + taxaDiariaAtendimentos +
+                "taxaPacientesPorDia=" + taxaPacientesPorDia +
                 ", id=" + id +
                 ", descricao='" + descricao + '\'' +
                 ", endereco=" + endereco +
