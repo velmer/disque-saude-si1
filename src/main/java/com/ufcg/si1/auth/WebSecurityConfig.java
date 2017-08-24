@@ -13,10 +13,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/prefeituras/eficiencia",
-                                                         "/api/unidadesaude/{id}/media").authenticated()
-                .antMatchers(HttpMethod.POST, "/api/unidadesaude").authenticated()
-                .antMatchers(HttpMethod.PUT, "/api/queixas").authenticated()
+                .antMatchers(HttpMethod.GET, "/prefeituras/eficiencia",
+                                                         "/unidadesaude/{id}/media").authenticated()
+                .antMatchers(HttpMethod.POST, "/unidadesaude").authenticated()
+                .antMatchers(HttpMethod.PUT, "/queixas").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
