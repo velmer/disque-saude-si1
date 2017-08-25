@@ -49,7 +49,7 @@ public class PrefeituraService implements CrudService<Prefeitura, Long> {
          * Temos que remover a prefeitura que existe no banco, para em caso de troca de
          * tipo, referente ao padrão State, o tipo da prefeitura no BD seja alterado.
          */
-        removePorId(prefeitura.getId());
+//        removePorId(prefeitura.getId());
 
         return this.prefeituraRepository.save(prefeitura);
     }

@@ -1,51 +1,28 @@
 package com.ufcg.si1.model.prefeitura;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ufcg.si1.enumeration.EficienciaPrefeitura;
 
 import javax.persistence.*;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "tipo")
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = PrefeituraNormal.class, name = "normal"),
-        @JsonSubTypes.Type(value = PrefeituraExtra.class, name = "extra"),
-        @JsonSubTypes.Type(value = PrefeituraCaos.class, name = "caos")
-})
 @Table(name = "TB_PREFEITURA")
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Prefeitura {
+public class Prefeitura {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     protected Long id;
 
-    @Column
-    protected float limiteEficienciaBaixa;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private SituacaoPrefeitura situacao;
 
-    @Column
-    protected float limiteEficienciaRegular;
+    public Prefeitura() {}
 
-    public Prefeitura(float limiteEficienciaBaixa, float limiteEficienciaRegular) {
-        this.limiteEficienciaBaixa = limiteEficienciaBaixa;
-        this.limiteEficienciaRegular = limiteEficienciaRegular;
+    public Prefeitura(SituacaoPrefeitura situacao) {
+        this.situacao = situacao;
     }
 
-    /**
-     * Retorna a eficiência da Prefeitura de acordo com o seu estado e a proporção entre
-     * queixas abertas e fechadas.
-     *
-     * @param proporcaoQueixas Proporção entre queixas abertas e fechadas.
-     * @return EficienciaPrefeitura Enum que indica qual a eficiência da prefeitura.
-     */
     public EficienciaPrefeitura getEficiencia(float proporcaoQueixas) {
-        if (proporcaoQueixas > limiteEficienciaBaixa)
-            return EficienciaPrefeitura.BAIXA;
-        else if (proporcaoQueixas > limiteEficienciaRegular)
-            return EficienciaPrefeitura.REGULAR;
-        else
-            return EficienciaPrefeitura.ALTA;
+        return this.situacao.getEficiencia(proporcaoQueixas);
     }
 
     public Long getId() {
@@ -56,12 +33,12 @@ public abstract class Prefeitura {
         this.id = id;
     }
 
-    public float getLimiteEficienciaBaixa() {
-        return limiteEficienciaBaixa;
+    public SituacaoPrefeitura getSituacao() {
+        return situacao;
     }
 
-    public float getLimiteEficienciaRegular() {
-        return limiteEficienciaRegular;
+    public void setSituacao(SituacaoPrefeitura situacao) {
+        this.situacao = situacao;
     }
 
     @Override
@@ -80,5 +57,11 @@ public abstract class Prefeitura {
     }
 
     @Override
-    public abstract String toString();
+    public String toString() {
+        return "Prefeitura{" +
+                "id=" + id +
+                ", situacao=" + situacao +
+                '}';
+    }
+
 }
