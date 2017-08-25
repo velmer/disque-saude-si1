@@ -4,6 +4,7 @@ import com.ufcg.si1.dto.PrefeituraDTO;
 import com.ufcg.si1.enumeration.EficienciaPrefeitura;
 import com.ufcg.si1.factory.PrefeituraFactory;
 import com.ufcg.si1.model.prefeitura.Prefeitura;
+import com.ufcg.si1.model.prefeitura.SituacaoPrefeitura;
 import com.ufcg.si1.service.PrefeituraService;
 import com.ufcg.si1.service.QueixaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,14 @@ public class PrefeituraApiController {
         float proporcaoQueixas = this.queixaService.getProporcaoQueixas();
 
         return new ResponseEntity<>(prefeitura.getEficiencia(proporcaoQueixas), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/situacao", method = RequestMethod.POST)
+    public ResponseEntity<Prefeitura> alteraSituacao(@RequestBody SituacaoPrefeitura situacao) {
+        Prefeitura prefeitura = this.prefeituraService.getPrefeitura();
+        prefeitura.setSituacao(situacao);
+
+        return new ResponseEntity<>(this.prefeituraService.atualiza(prefeitura), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
