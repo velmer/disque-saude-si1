@@ -48,9 +48,9 @@ public class PrefeituraApiController {
     @RequestMapping(value = "/eficiencia", method = RequestMethod.GET)
     public ResponseEntity<EficienciaPrefeitura> getEficiencia() {
         Prefeitura prefeitura = this.prefeituraService.getPrefeitura();
-        float proporcaoQueixas = this.queixaService.getProporcaoQueixas();
+        float proporcaoQueixasAbertasParaFechadas = this.queixaService.getProporcaoQueixasAbertasParaFechadas();
 
-        return new ResponseEntity<>(prefeitura.getEficiencia(proporcaoQueixas), HttpStatus.OK);
+        return new ResponseEntity<>(prefeitura.getEficiencia(proporcaoQueixasAbertasParaFechadas), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/situacao", method = RequestMethod.POST)

@@ -37,13 +37,13 @@ public abstract class SituacaoPrefeitura {
      * Retorna a eficiência da Prefeitura de acordo com o seu estado e a proporção entre
      * queixas abertas e fechadas.
      *
-     * @param proporcaoQueixas Proporção entre queixas abertas e fechadas.
+     * @param proporcaoQueixasAbertasParaFechadas Proporção entre queixas abertas e fechadas.
      * @return EficienciaPrefeitura Enum que indica qual a eficiência da prefeitura.
      */
-    public EficienciaPrefeitura getEficiencia(float proporcaoQueixas) {
-        if (proporcaoQueixas > limiteEficienciaBaixa)
+    public EficienciaPrefeitura getEficiencia(float proporcaoQueixasAbertasParaFechadas) {
+        if (proporcaoQueixasAbertasParaFechadas > limiteEficienciaBaixa)
             return EficienciaPrefeitura.BAIXA;
-        else if (proporcaoQueixas > limiteEficienciaRegular)
+        else if (proporcaoQueixasAbertasParaFechadas > limiteEficienciaRegular)
             return EficienciaPrefeitura.REGULAR;
         else
             return EficienciaPrefeitura.ALTA;

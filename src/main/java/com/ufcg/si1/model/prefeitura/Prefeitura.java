@@ -21,8 +21,8 @@ public class Prefeitura {
         this.situacao = situacao;
     }
 
-    public EficienciaPrefeitura getEficiencia(float proporcaoQueixas) {
-        return this.situacao.getEficiencia(proporcaoQueixas);
+    public EficienciaPrefeitura getEficiencia(float proporcaoQueixasAbertasParaFechadas) {
+        return this.situacao.getEficiencia(proporcaoQueixasAbertasParaFechadas);
     }
 
     public Long getId() {

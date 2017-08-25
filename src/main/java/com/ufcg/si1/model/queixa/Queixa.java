@@ -51,18 +51,6 @@ public abstract class Queixa {
 		this.solicitante = solicitante;
 	}
 
-    public boolean estaAberta() {
-        return this.status.equals(StatusQueixa.ABERTA);
-    }
-
-    public boolean estaEmAndamento() {
-        return this.status.equals(StatusQueixa.EM_ANDAMENTO);
-    }
-
-    public boolean estaFechada() {
-        return this.status.equals(StatusQueixa.FECHADA);
-    }
-
     /**
      * Verifica se o solicitante já foi persistido no BD.
      *
