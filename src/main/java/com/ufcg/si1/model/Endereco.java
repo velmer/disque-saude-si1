@@ -7,16 +7,13 @@ public class Endereco {
 
 	private String rua;
 	private String bairro;
-	private String cidade;
-    private String estado;
+
 
 	public Endereco() {}
 
-    public Endereco(String rua, String bairro, String cidade, String estado) {
+    public Endereco(String rua, String bairro) {
 		this.rua = rua;
 		this.bairro = bairro;
-		this.cidade = cidade;
-        this.estado = estado;
 	}
 
 	public String getRua() {
@@ -27,14 +24,6 @@ public class Endereco {
         return this.bairro;
     }
 
-	public String getCidade() {
-		return this.cidade;
-	}
-
-    public String getEstado() {
-        return this.estado;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,18 +31,13 @@ public class Endereco {
 
         Endereco endereco = (Endereco) o;
 
-        return rua.equals(endereco.rua)
-                && bairro.equals(endereco.bairro)
-                && cidade.equals(endereco.cidade)
-                && estado.equals(endereco.estado);
+        return rua.equals(endereco.rua) && bairro.equals(endereco.bairro);
     }
 
     @Override
     public int hashCode() {
         int result = rua.hashCode();
         result = 31 * result + bairro.hashCode();
-        result = 31 * result + cidade.hashCode();
-        result = 31 * result + estado.hashCode();
 
         return result;
     }
@@ -63,8 +47,6 @@ public class Endereco {
         return "Endereco{" +
                 "rua='" + rua + '\'' +
                 ", bairro='" + bairro + '\'' +
-                ", cidade='" + cidade + '\'' +
-                ", estado='" + estado + '\'' +
                 '}';
     }
 }

@@ -6,34 +6,18 @@ import javax.persistence.*;
 @Entity
 public class Pessoa {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Column
     private String nome;
 
-    @Column
+    @Id
     private String email;
-
-    @Embedded
-    private Endereco endereco;
 
 	public Pessoa() {}
 
-	public Pessoa(String nome, String email, Endereco endereco) {
+	public Pessoa(String nome, String email) {
 	    this.nome = nome;
 		this.email = email;
-		this.endereco = endereco;
 	}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNome() {
 		return nome;
@@ -43,10 +27,6 @@ public class Pessoa {
 		return email;
 	}
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,21 +34,19 @@ public class Pessoa {
 
         Pessoa pessoa = (Pessoa) o;
 
-        return id.equals(pessoa.id);
+        return email.equals(pessoa.email);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return email.hashCode();
     }
 
     @Override
     public String toString() {
         return "Pessoa{" +
-                "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
-                ", endereco=" + endereco +
                 '}';
     }
 }
