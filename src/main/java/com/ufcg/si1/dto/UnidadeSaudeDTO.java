@@ -31,7 +31,7 @@ public class UnidadeSaudeDTO {
     public int quantidadeMedicos;
 
     @Min(value = 0, message = "Uma Unidade de Saúde não pode possuir uma taxa diária de atendimentos negativa.")
-    public float taxaDiariaAtendimentos;
+    public float taxaPacientesPorDia;
 
     @Min(value = 0, message = "Uma Unidade de Saúde não pode possuir o número de pacientes por dia negativo.")
     public float numeroPacientesDia;

@@ -68,9 +68,6 @@ public class QueixaService implements CrudService<Queixa, Long> {
 
     @Override
     public Queixa salva(Queixa queixa) {
-        if (queixa.temSolicitantePersistido())
-            queixa.transformaParaMerge();
-
         return this.queixaRepository.save(queixa);
     }
 
@@ -81,11 +78,12 @@ public class QueixaService implements CrudService<Queixa, Long> {
 
     @Override
     public boolean removePorId(Long id) {
-        if (this.queixaRepository.exists(id)) {
+        boolean existeQueixa = this.queixaRepository.exists(id);
+
+        if (existeQueixa)
             this.queixaRepository.delete(id);
-            return true;
-        }
-        return false;
+
+        return existeQueixa;
     }
 
 }

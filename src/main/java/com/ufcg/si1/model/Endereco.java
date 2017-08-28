@@ -8,7 +8,6 @@ public class Endereco {
 	private String rua;
 	private String bairro;
 
-
 	public Endereco() {}
 
     public Endereco(String rua, String bairro) {

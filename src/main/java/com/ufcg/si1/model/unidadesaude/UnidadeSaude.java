@@ -43,7 +43,7 @@ public abstract class UnidadeSaude {
     }
 
     public float calculaMediaMedicoPorPaciente() {
-        if (getTaxaPacientesPorDia() == 0)  // FIXME: Adicionar exception personalizada (ValorInvalidoException)
+        if (getTaxaPacientesPorDia() == 0)
             throw new RuntimeException("Taxa de pacientes por dia não pode ser zero.");
 
         return this.quantidadeMedicos / getTaxaPacientesPorDia();

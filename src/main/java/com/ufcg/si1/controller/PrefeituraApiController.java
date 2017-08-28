@@ -5,6 +5,7 @@ import com.ufcg.si1.model.prefeitura.Prefeitura;
 import com.ufcg.si1.model.prefeitura.SituacaoPrefeitura;
 import com.ufcg.si1.service.PrefeituraService;
 import com.ufcg.si1.service.QueixaService;
+import com.ufcg.si1.util.Paths;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/prefeituras")
+@RequestMapping(value = Paths.PREFEITURA)
 public class PrefeituraApiController {
 
     private PrefeituraService prefeituraService;
@@ -36,7 +37,7 @@ public class PrefeituraApiController {
         return new ResponseEntity<>(prefeitura, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/eficiencia", method = RequestMethod.GET)
+    @RequestMapping(value = Paths.EFICIENCIA, method = RequestMethod.GET)
     public ResponseEntity<EficienciaPrefeitura> getEficiencia() {
         Prefeitura prefeitura = this.prefeituraService.getPrefeitura();
         float proporcaoQueixasAbertasParaFechadas = this.queixaService.getProporcaoQueixasAbertasParaFechadas();
@@ -44,7 +45,7 @@ public class PrefeituraApiController {
         return new ResponseEntity<>(prefeitura.getEficiencia(proporcaoQueixasAbertasParaFechadas), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/situacao", method = RequestMethod.POST)
+    @RequestMapping(value = Paths.SITUACAO, method = RequestMethod.POST)
     public ResponseEntity<Prefeitura> alteraSituacao(@RequestBody SituacaoPrefeitura situacao) {
         Prefeitura prefeitura = this.prefeituraService.getPrefeitura();
         prefeitura.setSituacao(situacao);

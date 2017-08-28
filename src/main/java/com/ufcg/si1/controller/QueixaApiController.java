@@ -4,7 +4,7 @@ import com.ufcg.si1.dto.QueixaDTO;
 import com.ufcg.si1.factory.QueixaFactory;
 import com.ufcg.si1.model.queixa.Queixa;
 import com.ufcg.si1.service.QueixaService;
-import exceptions.OperacaoInvalidaException;
+import com.ufcg.si1.util.Paths;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/queixas")
+@RequestMapping(value = Paths.QUEIXA)
 public class QueixaApiController {
 
     private QueixaService queixaService;
@@ -30,12 +30,7 @@ public class QueixaApiController {
         this.queixaService = queixaService;
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public ResponseEntity<List<Queixa>> listaTodos() {
-        return new ResponseEntity<>(this.queixaService.listaTodos(), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = Paths.POR_ID, method = RequestMethod.GET)
     public ResponseEntity<Queixa> getPorId(@PathVariable("id") Long id) {
         return new ResponseEntity<>(this.queixaService.getPorId(id), HttpStatus.OK);
     }
@@ -55,11 +50,6 @@ public class QueixaApiController {
             queixa.setStatus(queixaDTO.status);
 
         return new ResponseEntity<>(this.queixaService.atualiza(queixa), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> remove(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(this.queixaService.removePorId(id), HttpStatus.OK);
     }
 
 }

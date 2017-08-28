@@ -50,6 +50,11 @@
 			<version>0.7.0</version>
 		</dependency>
 		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>22.0</version>
+		</dependency>
+		<dependency>
 			<groupId>br.edu.ufcg</groupId>
 			<artifactId>hospital</artifactId>
 			<version>0.0</version>

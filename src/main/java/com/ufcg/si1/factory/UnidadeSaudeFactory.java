@@ -12,12 +12,12 @@ import java.util.Set;
 public class UnidadeSaudeFactory {
 
     public static UnidadeSaude criaUnidadeSaude(Long id, String tipo, String descricao, Endereco endereco, Set<Especialidade> especialidades,
-                                                int quantidadeMedicos, float taxaDiariaAtendimento, float numeroPacientesDia) {
+                                                int quantidadeMedicos, float taxaPacientesPorDia, float numeroPacientesDia) {
 
         UnidadeSaude unidadeSaudeCriada;
 
         if (tipo.equals("postoSaude")) {
-            unidadeSaudeCriada = new PostoSaude(descricao, endereco, especialidades, quantidadeMedicos, taxaDiariaAtendimento);
+            unidadeSaudeCriada = new PostoSaude(descricao, endereco, especialidades, quantidadeMedicos, taxaPacientesPorDia);
         } else if (tipo.equals("hospital")) {
             unidadeSaudeCriada = new HospitalAdapter(descricao, endereco, especialidades, quantidadeMedicos, numeroPacientesDia);
         } else {
@@ -31,10 +31,10 @@ public class UnidadeSaudeFactory {
     }
 
     public static UnidadeSaude criaUnidadeSaude(String tipo, String descricao, Endereco endereco, Set<Especialidade> especialidades,
-                                                int quantidadeMedicos, float taxaDiariaAtendimento, float numeroPacientesDia) {
+                                                int quantidadeMedicos, float taxaPacientesPorDia, float numeroPacientesDia) {
 
         return UnidadeSaudeFactory.criaUnidadeSaude(null, tipo, descricao, endereco, especialidades, quantidadeMedicos,
-                taxaDiariaAtendimento, numeroPacientesDia);
+                taxaPacientesPorDia, numeroPacientesDia);
     }
 
     public static UnidadeSaude criaUnidadeSaude(UnidadeSaudeDTO unidadeSaudeDTO) {
@@ -44,7 +44,7 @@ public class UnidadeSaudeFactory {
                 unidadeSaudeDTO.endereco,
                 unidadeSaudeDTO.especialidades,
                 unidadeSaudeDTO.quantidadeMedicos,
-                unidadeSaudeDTO.taxaDiariaAtendimentos,
+                unidadeSaudeDTO.taxaPacientesPorDia,
                 unidadeSaudeDTO.numeroPacientesDia);
     }
 }

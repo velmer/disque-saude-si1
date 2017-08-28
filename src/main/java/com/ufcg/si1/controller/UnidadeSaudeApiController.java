@@ -5,6 +5,7 @@ import com.ufcg.si1.factory.UnidadeSaudeFactory;
 import com.ufcg.si1.model.unidadesaude.Especialidade;
 import com.ufcg.si1.model.unidadesaude.UnidadeSaude;
 import com.ufcg.si1.service.UnidadeSaudeService;
+import com.ufcg.si1.util.Paths;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/unidadesaude")
+@RequestMapping(value = Paths.UNIDADE_SAUDE)
 public class UnidadeSaudeApiController {
 
     private UnidadeSaudeService unidadeSaudeService;
@@ -31,7 +32,6 @@ public class UnidadeSaudeApiController {
         this.unidadeSaudeService = unidadeSaudeService;
     }
 
-
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<UnidadeSaude> insere(@Valid @RequestBody UnidadeSaudeDTO unidadeSaudeDTO) {
         UnidadeSaude unidadeSaude = UnidadeSaudeFactory.criaUnidadeSaude(unidadeSaudeDTO);
@@ -39,19 +39,7 @@ public class UnidadeSaudeApiController {
         return new ResponseEntity<>(this.unidadeSaudeService.salva(unidadeSaude), HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<UnidadeSaude> atualiza(@Valid @RequestBody UnidadeSaudeDTO unidadeSaudeDTO) {
-        UnidadeSaude unidadeSaude = UnidadeSaudeFactory.criaUnidadeSaude(unidadeSaudeDTO);
-
-        unidadeSaude = this.unidadeSaudeService.atualiza(unidadeSaude);
-
-        if (unidadeSaude == null)
-            new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        return new ResponseEntity<>(unidadeSaude, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/especialidade", method = RequestMethod.GET)
+    @RequestMapping(value = Paths.ESPECIALIDADE, method = RequestMethod.GET)
     public ResponseEntity<List<UnidadeSaude>> getPorEspecialidade(@RequestParam("especialidade") Especialidade especialidade) {
         List<UnidadeSaude> unidadesSelecionadas = this.unidadeSaudeService.getPorEspecialidade(especialidade);
 
@@ -61,7 +49,7 @@ public class UnidadeSaudeApiController {
         return new ResponseEntity<>(unidadesSelecionadas, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/bairro", method = RequestMethod.GET)
+    @RequestMapping(value = Paths.BAIRRO, method = RequestMethod.GET)
     public ResponseEntity<List<UnidadeSaude>> getPorBairro(@NotNull @RequestParam("bairro") String bairro) {
         List<UnidadeSaude> unidadesSelecionadas = this.unidadeSaudeService.getPorBairro(bairro);
 
@@ -71,7 +59,7 @@ public class UnidadeSaudeApiController {
         return new ResponseEntity<>(unidadesSelecionadas, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/media", method = RequestMethod.GET)
+    @RequestMapping(value = Paths.MEDIA_POR_ID, method = RequestMethod.GET)
     public ResponseEntity<UnidadeSaudeDTO> getMediaMedicoPorPaciente(@PathVariable("id") Long id) {
         UnidadeSaude unidadeSaude = this.unidadeSaudeService.getPorId(id);
         UnidadeSaudeDTO unidadeSaudeDTO = new UnidadeSaudeDTO();

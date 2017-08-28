@@ -1,13 +1,5 @@
 package com.ufcg.si1;
- 
-import java.net.URI;
-import java.util.LinkedHashMap;
-import java.util.List;
 
-import com.ufcg.si1.model.*;
-import com.ufcg.si1.util.ObjWrapper;
-import org.springframework.web.client.RestTemplate;
- 
 
 public class SpringBootRestTestClient {
 //
