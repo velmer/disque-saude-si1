@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UnidadeSaudeService implements CrudService<UnidadeSaude, Long> {
+public class UnidadeSaudeService {
 
     private UnidadeSaudeRepository unidadeSaudeRepository;
 
@@ -20,58 +20,23 @@ public class UnidadeSaudeService implements CrudService<UnidadeSaude, Long> {
         this.unidadeSaudeRepository = unidadeSaudeRepository;
     }
 
-    @Override
-    public List<UnidadeSaude> listaTodos() {
-        return this.unidadeSaudeRepository.findAll();
-    }
-
-    @Override
     public UnidadeSaude getPorId(Long id) {
         return this.unidadeSaudeRepository.findOne(id);
     }
 
-    @Override
     public UnidadeSaude salva(UnidadeSaude unidadeSaude) {
         return this.unidadeSaudeRepository.save(unidadeSaude);
     }
 
-    @Override
     public UnidadeSaude atualiza(UnidadeSaude unidadeSaude) {
         return this.unidadeSaudeRepository.exists(unidadeSaude.getId()) ? this.unidadeSaudeRepository.save(unidadeSaude) : null;
     }
 
-    @Override
-    public boolean removePorId(Long id) {
-        if (this.unidadeSaudeRepository.exists(id)) {
-            this.unidadeSaudeRepository.delete(id);
-            return true;
-        }
-        return false;
-    }
-
     public List<UnidadeSaude> getPorEspecialidade(Especialidade especialidade) {
-        // FIXME: Quando Especialidade for uma entidade no BD, esse método deve ser substituído por uma query
-        List<UnidadeSaude> todasUnidadesSaude = this.listaTodos(),
-                unidadesSelecionadas = new ArrayList<>();
-
-        for (UnidadeSaude unidadeSaude : todasUnidadesSaude) {
-            if (unidadeSaude.contemEspecialidade(especialidade))
-                unidadesSelecionadas.add(unidadeSaude);
-        }
-
-        return unidadesSelecionadas;
+        return this.unidadeSaudeRepository.findByEspecialidadesContains(especialidade);
     }
 
     public List<UnidadeSaude> getPorBairro(String bairro) {
-        // FIXME: Deve ser substituído por uma query (no hablo SQL)
-        List<UnidadeSaude> todasUnidadesSaude = this.listaTodos(),
-                unidadesSelecionadas = new ArrayList<>();
-
-        for (UnidadeSaude unidadeSaude : todasUnidadesSaude) {
-            if (unidadeSaude.pertenceAoBairro(bairro))
-                unidadesSelecionadas.add(unidadeSaude);
-        }
-
-        return unidadesSelecionadas;
+        return this.unidadeSaudeRepository.findByBairro(bairro);
     }
 }

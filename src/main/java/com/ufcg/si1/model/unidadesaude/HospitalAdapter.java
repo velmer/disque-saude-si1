@@ -13,11 +13,10 @@ import java.util.Set;
 @Entity
 public class HospitalAdapter extends UnidadeSaude {
 
-    // FIXME: What in the hell should I put here?
     @Transient
     private Hospital hospital;
 
-    @Column // TODO: Remover esse campo e passar a utilizar somente o dado do Hospital da lib quando o mesmo for persistido. Patterns..
+    @Column
     private float numeroPacientesDia;
 
     public HospitalAdapter() { super(); }

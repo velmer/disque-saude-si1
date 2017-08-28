@@ -51,18 +51,6 @@ public abstract class UnidadeSaude {
 
     public abstract float getTaxaPacientesPorDia();
 
-    public boolean adicionaEspecialidade(Especialidade esp) {
-        return this.especialidades.add(esp);
-    }
-
-    public boolean contemEspecialidade(Especialidade esp) {
-        return  this.especialidades.contains(esp);
-    }
-
-    public boolean pertenceAoBairro(String bairro) {
-        return this.endereco.getBairro().equals(bairro);
-    }
-
     public Long getId() {
         return this.id;
     }
@@ -85,6 +73,21 @@ public abstract class UnidadeSaude {
 
     public int getQuantidadeMedicos() {
         return this.quantidadeMedicos;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UnidadeSaude that = (UnidadeSaude) o;
+
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 
     @Override

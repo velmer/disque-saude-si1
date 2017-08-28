@@ -31,14 +31,24 @@ public class UnidadeSaudeApiController {
         this.unidadeSaudeService = unidadeSaudeService;
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public ResponseEntity<List<UnidadeSaude>> listaTodos() {
-        return new ResponseEntity<>(this.unidadeSaudeService.listaTodos(), HttpStatus.OK);
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<UnidadeSaude> insere(@Valid @RequestBody UnidadeSaudeDTO unidadeSaudeDTO) {
+        UnidadeSaude unidadeSaude = UnidadeSaudeFactory.criaUnidadeSaude(unidadeSaudeDTO);
+
+        return new ResponseEntity<>(this.unidadeSaudeService.salva(unidadeSaude), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<UnidadeSaude> getPorId(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(this.unidadeSaudeService.getPorId(id), HttpStatus.OK);
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<UnidadeSaude> atualiza(@Valid @RequestBody UnidadeSaudeDTO unidadeSaudeDTO) {
+        UnidadeSaude unidadeSaude = UnidadeSaudeFactory.criaUnidadeSaude(unidadeSaudeDTO);
+
+        unidadeSaude = this.unidadeSaudeService.atualiza(unidadeSaude);
+
+        if (unidadeSaude == null)
+            new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(unidadeSaude, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/especialidade", method = RequestMethod.GET)
@@ -71,25 +81,6 @@ public class UnidadeSaudeApiController {
 
         unidadeSaudeDTO.mediaMedicoPorPaciente = unidadeSaude.calculaMediaMedicoPorPaciente();
         return new ResponseEntity<>(unidadeSaudeDTO, HttpStatus.OK);
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<UnidadeSaude> insere(@Valid @RequestBody UnidadeSaudeDTO unidadeSaudeDTO) {
-        UnidadeSaude unidadeSaude = UnidadeSaudeFactory.criaUnidadeSaude(unidadeSaudeDTO);
-
-        return new ResponseEntity<>(this.unidadeSaudeService.salva(unidadeSaude), HttpStatus.CREATED);
-    }
-
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<UnidadeSaude> atualiza(@Valid @RequestBody UnidadeSaudeDTO unidadeSaudeDTO) {
-        UnidadeSaude unidadeSaude = UnidadeSaudeFactory.criaUnidadeSaude(unidadeSaudeDTO);
-
-        return new ResponseEntity<>(this.unidadeSaudeService.atualiza(unidadeSaude), HttpStatus.CREATED);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> remove(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(this.unidadeSaudeService.removePorId(id), HttpStatus.OK);
     }
 
 }
