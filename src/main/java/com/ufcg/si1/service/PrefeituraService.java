@@ -22,7 +22,7 @@ public class PrefeituraService {
     public Prefeitura getPrefeitura() {
         Prefeitura prefeitura = this.prefeituraRepository.getPrefeitura();
 
-		if (prefeitura == null)
+		if (!existePrefeitura())
             prefeitura = inserePrefeitura();
 
         return prefeitura;
@@ -34,9 +34,12 @@ public class PrefeituraService {
         return this.prefeituraRepository.save(prefeitura);
     }
 
-    public Prefeitura atualiza(Prefeitura prefeitura) {
-        return this.prefeituraRepository.save(prefeitura);
+    private boolean existePrefeitura() {
+        return this.prefeituraRepository.getPrefeitura() != null;
     }
 
+    public Prefeitura atualiza(Prefeitura prefeitura) {
+        return existePrefeitura() ? this.prefeituraRepository.save(prefeitura) : null;
+    }
 
 }

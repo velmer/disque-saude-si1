@@ -16,6 +16,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String TOKEN_HEADER = "Authorization";
     private static final String USERNAME = "VigilanciaSanitaria";
     private static final String PASSWORD = "vigilancia";
     private static final String ROLE = "ADMIN";
@@ -48,11 +49,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        final CorsConfiguration corsConfiguration = new CorsConfiguration();
+        final CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
 
         corsConfiguration.setAllowedOrigins(ImmutableList.of("*"));
-        corsConfiguration.setAllowedMethods(ImmutableList.of("GET", "POST", "PUT", "DELETE", "PATCH"));
-        corsConfiguration.setAllowedHeaders(ImmutableList.of("Authorization", "Cache-Control", "Content-Type"));
+        corsConfiguration.setAllowedMethods(ImmutableList.of("*"));
+        corsConfiguration.addExposedHeader(TOKEN_HEADER);
 
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class QueixaService implements CrudService<Queixa, Long> {
+public class QueixaService {
 
     private QueixaRepository queixaRepository;
 
@@ -17,13 +17,7 @@ public class QueixaService implements CrudService<Queixa, Long> {
     public QueixaService(QueixaRepository queixaRepository) {
         this.queixaRepository = queixaRepository;
     }
-
-    @Override
-    public List<Queixa> listaTodos() {
-        return this.queixaRepository.findAll();
-    }
-
-    @Override
+	
     public Queixa getPorId(Long id) {
         return this.queixaRepository.findOne(id);
     }
@@ -55,7 +49,7 @@ public class QueixaService implements CrudService<Queixa, Long> {
      * @return Quantidade de queixas que possui o status especificado.
      */
     private int getQuantidadeQueixasPeloStatus(StatusQueixa statusQueixa) {
-        List<Queixa> todasQueixas = listaTodos();
+        List<Queixa> todasQueixas = this.queixaRepository.findAll();
         int quantidadeQueixasDoStatus = 0;
 
         for (Queixa queixa : todasQueixas) {
@@ -66,24 +60,12 @@ public class QueixaService implements CrudService<Queixa, Long> {
         return quantidadeQueixasDoStatus;
     }
 
-    @Override
     public Queixa salva(Queixa queixa) {
         return this.queixaRepository.save(queixa);
     }
 
-    @Override
     public Queixa atualiza(Queixa queixa) {
         return this.queixaRepository.exists(queixa.getId()) ? this.queixaRepository.save(queixa) : null;
-    }
-
-    @Override
-    public boolean removePorId(Long id) {
-        boolean existeQueixa = this.queixaRepository.exists(id);
-
-        if (existeQueixa)
-            this.queixaRepository.delete(id);
-
-        return existeQueixa;
     }
 
 }

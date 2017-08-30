@@ -32,7 +32,12 @@ public class QueixaApiController {
 
     @RequestMapping(value = Paths.POR_ID, method = RequestMethod.GET)
     public ResponseEntity<Queixa> getPorId(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(this.queixaService.getPorId(id), HttpStatus.OK);
+        Queixa queixa = this.queixaService.getPorId(id);
+        HttpStatus status;
+
+        status = queixa == null ? HttpStatus.NOT_FOUND : HttpStatus.OK;
+
+        return new ResponseEntity<>(queixa, status);
     }
 
     @RequestMapping(method = RequestMethod.POST)

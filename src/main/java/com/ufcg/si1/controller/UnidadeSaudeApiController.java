@@ -31,6 +31,16 @@ public class UnidadeSaudeApiController {
     public UnidadeSaudeApiController(UnidadeSaudeService unidadeSaudeService) {
         this.unidadeSaudeService = unidadeSaudeService;
     }
+	
+	@RequestMapping(value = Paths.POR_ID, method = RequestMethod.GET)
+    public ResponseEntity<UnidadeSaude> getPorId(@PathVariable("id") Long id) {
+        UnidadeSaude unidade = this.unidadeSaudeService.getPorId(id);
+        HttpStatus status;
+
+        status = unidade == null ? HttpStatus.NOT_FOUND : HttpStatus.OK;
+
+        return new ResponseEntity<>(unidade, status);
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<UnidadeSaude> insere(@Valid @RequestBody UnidadeSaudeDTO unidadeSaudeDTO) {
@@ -42,21 +52,21 @@ public class UnidadeSaudeApiController {
     @RequestMapping(value = Paths.ESPECIALIDADE, method = RequestMethod.GET)
     public ResponseEntity<List<UnidadeSaude>> getPorEspecialidade(@RequestParam("especialidade") Especialidade especialidade) {
         List<UnidadeSaude> unidadesSelecionadas = this.unidadeSaudeService.getPorEspecialidade(especialidade);
+        HttpStatus status;
 
-        if (unidadesSelecionadas.isEmpty())
-            return new ResponseEntity<>(unidadesSelecionadas, HttpStatus.NOT_FOUND);
+        status = (unidadesSelecionadas.isEmpty()) ? HttpStatus.NOT_FOUND : HttpStatus.OK;
 
-        return new ResponseEntity<>(unidadesSelecionadas, HttpStatus.OK);
+        return new ResponseEntity<>(unidadesSelecionadas, status);
     }
 
     @RequestMapping(value = Paths.BAIRRO, method = RequestMethod.GET)
     public ResponseEntity<List<UnidadeSaude>> getPorBairro(@NotNull @RequestParam("bairro") String bairro) {
         List<UnidadeSaude> unidadesSelecionadas = this.unidadeSaudeService.getPorBairro(bairro);
+        HttpStatus status;
 
-        if (unidadesSelecionadas.isEmpty())
-            return new ResponseEntity<>(unidadesSelecionadas, HttpStatus.NOT_FOUND);
+        status = (unidadesSelecionadas.isEmpty()) ? HttpStatus.NOT_FOUND : HttpStatus.OK;
 
-        return new ResponseEntity<>(unidadesSelecionadas, HttpStatus.OK);
+        return new ResponseEntity<>(unidadesSelecionadas, status);
     }
 
     @RequestMapping(value = Paths.MEDIA_POR_ID, method = RequestMethod.GET)
