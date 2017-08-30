@@ -22,6 +22,7 @@ public final class Paths {
     public static final String SITUACAO_PREFEITURA = Paths.PREFEITURA + Paths.SITUACAO;
 
     public static final String UNIDADE_SAUDE = "/unidadesaude";
+    public static final String UNIDADE_SAUDE_POR_ID = Paths.UNIDADE_SAUDE + Paths.POR_ID;
     public static final String ESPECIALIDADE = "/especialidade";
     public static final String BAIRRO = "/bairro";
     public static final String UNIDADE_SAUDE_POR_ESPECIALIDADE = Paths.UNIDADE_SAUDE + Paths.ESPECIALIDADE;

@@ -27,6 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, Paths.QUEIXA).permitAll()
                 .antMatchers(HttpMethod.GET,
                         Paths.QUEIXA_POR_ID,
+                        Paths.UNIDADE_SAUDE_POR_ID,
                         Paths.UNIDADE_SAUDE_POR_BAIRRO,
                         Paths.UNIDADE_SAUDE_POR_ESPECIALIDADE,
                         Paths.MEDIA_UNIDADE_SAUDE)
